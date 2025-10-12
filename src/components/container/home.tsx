@@ -5,14 +5,14 @@ export default function home() {
   return (
     <>
       <div className="relative w-full overflow-hidden">
-        <img className="absolute" src="/image1.png" alt="imageawal" />
+        <img className="w-full absolute -z-10" src="/image1.png" alt="imageawal" />
         {/* Navigation */}
-        <nav className="px-20 bg-amber-300 w-full h-[90px] mx-auto grid grid-cols-3 justify-between items-center">
-          <div className="flex flex-1 gap-3">
-            <img src="/Vector1.png" alt="logo movie" />
-            <h1>Movie</h1>
+        <nav className=" px-20 w-full md:h-[90px] h-[64px] mx-auto grid grid-cols-3 justify-between items-center">
+          <div className="bg-amber-300 flex flex-1 gap-3 justify-start items-center">
+            <img className="md:w-[33.33px] md:h-[31.18]" src="/Vector1.png" alt="logo movie" />
+            <h1 className="md:text-[28.4px] text-[19.9px]">Movie</h1>
           </div>
-          <h2 className="flex flex-1 gap-10">
+          <h2 className="md:flex flex-1 gap-10 hidden font-medium">
             <span>Home</span> <span>Favorites</span>
           </h2>
           <form action="" className="relative">
@@ -22,7 +22,7 @@ export default function home() {
         </nav>
 
         {/* Hero */}
-        <section>selmat pagi
+        <section className="w-full md:h-[673px] h-[448px]">selmat pagi
 
         </section>
       </div>
