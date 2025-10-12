@@ -31,7 +31,13 @@ export default function home() {
 
         {/* Hero */}
         <section className="w-full sm:h-[673px] h-[448px]">
-
+          <h1>The Gorge</h1>
+          <h4>Two highly trained operatives grow close from a distance after being sent to guard opposite sides of a mysterious gorge. When an evil below emerges, they must work together to survive what lies within.</h4>
+          <form action="">
+            <button type="submit">Watch Trailer</button>
+            <button type="submit">See Detail</button>
+            <img src="/Play.png" alt="vektor" className="bg-red-500" />
+          </form>
         </section>
       </div>
     </>
