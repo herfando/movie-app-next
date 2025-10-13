@@ -31,14 +31,20 @@ export default function home() {
 
         {/* Hero */}
         <section className="w-full sm:h-[673px] h-[448px] flex items-center">
-          <div className="bg-amber-300 sm:pl-15 pl-0 sm:w-[635px] w-full">
-            <h1>The Gorge</h1>
-            <h4>Two highly trained operatives grow close from a distance after being sent to guard opposite sides of a mysterious gorge. When an evil below emerges, they must work together to survive what lies within.</h4>
-            <form action="">
-              <button type="submit">Watch Trailer</button>
-              <button type="submit">See Detail</button>
-              <img src="/Play.png" alt="vektor" className="bg-red-500" />
-            </form>
+          {/* Text */}
+          <div className="sm:translate-y-[-40px] sm:pl-15 pl-0 sm:w-[635px] w-full grid gap-7">
+            <h1 className="text-5xl font-bold text-[#FDFDFD]">The Gorge</h1>
+            <h4 className="text-md font-medium text-[#A4A7AE]">Two highly trained operatives grow close from a distance after being sent to guard opposite sides of a mysterious gorge. When an evil below emerges, they must work together to survive what lies within.</h4>
+            {/* Button */}
+            <div className="flex gap-5 sm:mt-5 text-[#FDFDFD]">
+              <form action="" className="flex justify-center items-center sm:h-[52px] sm:w-[230px] relative rounded-full bg-[#961200]">
+                <button type="submit">Watch Trailer</button>
+                <img src="/Play.png" alt="vektor" className="pl-2" />
+              </form>
+              <form action="" className="flex justify-center items-center sm:h-[52px] sm:w-[230px] bg-[#181D27] rounded-full">
+                <button type="submit">See Detail</button>
+              </form>
+            </div>
           </div>
         </section>
       </div>
