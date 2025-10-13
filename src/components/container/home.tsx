@@ -1,10 +1,29 @@
 "use client"
 
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,} from "@/components/ui/carousel"
+
+
+export interface Movie {
+  id: number;
+  img: string;
+  title: string;
+  rating: string;
+}
+
+const movie: Movie[] = [
+  { id: 1, img: "/movie1.png", title:"The Gorge", rating: "7.9" },
+  { id: 2, img: "/movie2.png", title:"Mufasa: The Lion King", rating: "7.9" },
+  { id: 3, img: "/movie3.png", title:"The Brutalist", rating: "7.9" },
+  { id: 4, img: "/movie4.png", title:"Companion", rating: "7.9" },
+  { id: 5, img: "/movie5.png", title:"Brave New World", rating: "7.9" },
+  { id: 6, img: "/movie6.png", title:"Dog Man", rating: "7.0" },
+];
+
 
 export default function home() {
   return (
     <>
-      <div className="relative w-full overflow-hidden">
+      <div className="relative w-full overflow-hidden bg-black -z-20">
         <img className="w-full absolute -z-10 sm:flex hidden" src="/image1.png" alt="image1" />
         <img className="w-full absolute -z-10 sm:hidden flex" src="/image2.png" alt="image2" />
         {/* Navigation */}
@@ -36,18 +55,52 @@ export default function home() {
             <h1 className="text-2xl sm:text-5xl font-bold text-[#FDFDFD]">The Gorge</h1>
             <h4 className="text-md font-medium text-[#A4A7AE]">Two highly trained operatives grow close from a distance after being sent to guard opposite sides of a mysterious gorge. When an evil below emerges, they must work together to survive what lies within.</h4>
             {/* Button */}
-            <div className="grid sm:grid-cols-2 grid-cols-1 sm:mt-5 text-[#FDFDFD]">
-              <form action="" className="flex justify-center items-center sm:h-[52px] sm:w-[230px] relative rounded-full bg-[#961200]">
+            <div className="gap-4 sm:gap-0 grid sm:grid-cols-2 grid-cols-1 sm:mt-5 text-[#FDFDFD]">
+              <form action="" className="h-[44px] w-full flex justify-center items-center sm:h-[52px] sm:w-[230px] relative rounded-full bg-[#961200]">
                 <button type="submit">Watch Trailer</button>
                 <img src="/Play.png" alt="vektor" className="pl-2" />
               </form>
-              <form action="" className="sm:translate-x-[-60px] flex justify-center items-center sm:h-[52px] sm:w-[230px] bg-[#181D27] rounded-full">
+              <form action="" className="h-[44px] w-full sm:translate-x-[-60px] flex justify-center items-center sm:h-[52px] sm:w-[230px] bg-[#181D27] rounded-full">
                 <button type="submit">See Detail</button>
               </form>
             </div>
           </div>
         </section>
       </div>
+
+      {/* Trending Now */}
+      <section className="grid w-full h-[565px] "> 
+        <h1 className="sm:text-5xl text-2xl">Trending Now</h1>
+      {/* tampilkan interface movie */}
+      <div className="flex gap-3 w-full justify-center">
+        {movie.map((movie) => (
+          <div key={movie.id}>
+            <img src={movie.img} alt={movie.title} width={216} height={321} />
+            <h2 className="text-lg font-semibold">{movie.title}</h2>
+            <p>⭐{movie.rating}/10</p>
+          </div>
+        ))}
+      </div>
+    
+        <div>
+          <Carousel className="bg-amber-500 h-[100px]">
+            <CarouselContent>
+              <CarouselItem className="basis-1/3">...</CarouselItem>
+              <CarouselItem className="basis-1/3">...</CarouselItem>
+              <CarouselItem className="basis-1/3">...</CarouselItem>
+            </CarouselContent>
+          </Carousel>
+        </div>
+      </section>
+
+      {/* New Release */}
+      <section>
+
+
+      </section>
+
+
+
     </>
   )
 }
