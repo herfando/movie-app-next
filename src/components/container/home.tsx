@@ -34,15 +34,15 @@ export default function home() {
             <h1 className="sm:text-[28.4px] text-[19.9px]">Movie</h1>
           </div>
           {/* Middle list */}
-          <h2 className=" sm:flex flex-1 gap-10 hidden font-medium">
+          <h2 className="text-[#FFFFFF] md:flex flex-1 gap-10 hidden font-medium">
             <span>Home</span> <span>Favorites</span>
           </h2>
           {/* Search & Menu */}
-          <form action="" className=" relative sm:flex hidden items-center">
+          <form action="" className=" relative md:flex hidden items-center">
             <img src="/Vector2.png" alt="search" className="absolute pl-3" />
-            <input type="text" placeholder="Search movie" className="border bg-[#252B37] border-[#252B37] rounded-lg w-[243px] h-[56] pl-10" />
+            <input type="text" placeholder="Search Movie" className="text-[#717680] border bg-[#252B37] border-[#252B37] rounded-lg w-[243px] h-[56] pl-10" />
           </form>
-          <div className=" sm:hidden flex flex-1 justify-end items-center gap-4 translate-x-[-13px]">
+          <div className="md:hidden flex justify-end items-center gap-4 translate-x-[-13px]">
             <img src="/Vector3.png" alt="search" />
             <img src="/Menu1.png" alt="search" />
           </div>
@@ -69,29 +69,36 @@ export default function home() {
       </div>
 
       {/* Trending Now */}
-      <section className="grid w-full h-[565px] "> 
-        <h1 className="sm:text-5xl text-2xl">Trending Now</h1>
-      {/* tampilkan interface movie */}
-      <div className="flex gap-3 w-full justify-center">
-        {movie.map((movie) => (
-          <div key={movie.id}>
-            <img src={movie.img} alt={movie.title} width={216} height={321} />
-            <h2 className="text-lg font-semibold">{movie.title}</h2>
-            <p>⭐{movie.rating}/10</p>
-          </div>
-        ))}
-      </div>
-    
-        <div>
-          <Carousel className="bg-amber-500 h-[100px]">
-            <CarouselContent>
-              <CarouselItem className="basis-1/3">...</CarouselItem>
-              <CarouselItem className="basis-1/3">...</CarouselItem>
-              <CarouselItem className="basis-1/3">...</CarouselItem>
-            </CarouselContent>
-          </Carousel>
-        </div>
+      <section className="w-full py-10 px-[60px] bg-black">
+        <h1 className="sm:text-5xl text-2xl mb-6 font-bold text-white">Trending Now</h1>
+
+        <Carousel className="w-full mx-auto ">
+          <CarouselContent>
+            {movie.map((item) => (
+              <CarouselItem
+                key={item.id}
+                className="basis-1/2 sm:basis-1/3 lg:basis-1/5"
+              >
+                <div className="flex flex-col items-center">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    width={216}
+                    height={321}
+                    className="rounded-xl shadow-lg hover:scale-105 transition-all duration-300"
+                  />
+                  <h2 className="text-lg font-semibold mt-3 text-[#FDFDFD]">{item.title}</h2>
+                  <p className="text-sm text-gray-400">⭐ {item.rating}/10</p>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </section>
+
 
       {/* New Release */}
       <section>
