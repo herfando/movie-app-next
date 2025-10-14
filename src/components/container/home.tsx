@@ -143,14 +143,14 @@ export default function home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black w-full h-[120px] grid grid-cols-2 justify-center item-center content-center">
+      <footer className="gap-5 md:pl-20 pl-10 mx-auto bg-black w-full h-[120px] grid md:grid-cols-2 grid-cols-1 justify-center item-center content-center">
         {/* Movie */}
-        <div className="sm:translate-x-25 translate-x-5 text-[#FDFDFD] flex flex-1 gap-3 items-center">
-          <img className="sm:w-[33.33px] sm:h-[31.18] w-[23.33px] h-[21.82px]" src="/Vector1.png" alt="logo movie" />
+        <div className=" text-[#FDFDFD] flex flex-1 gap-3 items-center">
+          <img className=" sm:w-[33.33px] sm:h-[31.18] w-[23.33px] h-[21.82px]" src="/Vector1.png" alt="logo movie" />
           <h1 className="sm:text-[28.4px] text-[19.9px]">Movie</h1>
         </div> 
         {/* Copyright */}
-        <p className="sm:translate-x-35  text-[#535862] grid justify-center items-center">Copyright &copy; {new Date().getFullYear()} Movie Explorer</p>
+        <p className=" text-[#535862] md:pl-55 pl-0  grid md:justify-center justify-start items-center">Copyright &copy; {new Date().getFullYear()} Movie Explorer</p>
       </footer>
     </>
   )
