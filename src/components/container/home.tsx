@@ -99,7 +99,7 @@ export default function home() {
                 key={item.id}
                 className="basis-1/2 sm:basis-1/3 lg:basis-1/5"
               >
-                <div className="flex flex-col items-center">
+                <div className="grid justify-start items-center">
                   <img
                     src={item.img}
                     alt={item.title}
@@ -127,7 +127,7 @@ export default function home() {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
           {newmovie.map((item) => (
-            <div key={item.id} className="flex flex-col items-center">
+            <div key={item.id} className=" grid justify-start items-center">
               <img
                 src={item.img}
                 alt={item.title}
@@ -141,6 +141,17 @@ export default function home() {
           ))}
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-black w-full h-[120px] grid grid-cols-2 justify-center item-center content-center">
+        {/* Movie */}
+        <div className="sm:translate-x-25 translate-x-5 text-[#FDFDFD] flex flex-1 gap-3 items-center">
+          <img className="sm:w-[33.33px] sm:h-[31.18] w-[23.33px] h-[21.82px]" src="/Vector1.png" alt="logo movie" />
+          <h1 className="sm:text-[28.4px] text-[19.9px]">Movie</h1>
+        </div> 
+        {/* Copyright */}
+        <p className="sm:translate-x-35  text-[#535862] grid justify-center items-center">Copyright &copy; {new Date().getFullYear()} Movie Explorer</p>
+      </footer>
     </>
   )
 }
