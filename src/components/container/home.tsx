@@ -48,7 +48,9 @@ export default function Home() {
         <img className="w-full absolute md:flex hidden" src="/image1.png" alt="image1" />
         <img className="w-full absolute md:hidden flex" src="/image2.png" alt="image2" />
         {/* Navbar */}
-        <nav className="w-full md:h-[90px] h-[64px] mx-auto grid md:grid-cols-[1fr_3fr_1fr] grid-cols-2 justify-around items-center">
+        <nav  className={`relative z-50 w-full md:h-[90px] h-[64px] mx-auto grid md:grid-cols-[1fr_3fr_1fr] grid-cols-2 justify-around items-center
+                ${isOpen ? "bg-black" : "bg-transparent" }`}
+        >
           {/* Movie */}
           <div className="md:translate-x-20 translate-x-5 text-[#FDFDFD] flex flex-1 gap-3 items-center">
             <img className="md:w-[33.33px] md:h-[31.18] w-[23.33px] h-[21.82px]" src="/Vector1.png" alt="logo movie" />
@@ -64,7 +66,7 @@ export default function Home() {
             <input type="text" placeholder="Search Movie" className="text-[#717680] border bg-[#252B37] border-[#252B37] rounded-lg w-[243px] h-[56] pl-10" />
           </form>
           <div className=" md:hidden flex justify-end items-center gap-4 translate-x-[-13px]">
-            <img src="/Vector3.png" alt="search" />
+            {!isOpen && <img src="/Vector3.png" alt="search" />}
             <Hamburger toggled={isOpen} toggle={setOpen} color="#fff"/>
           </div>
           {/* Dropdown Menu is Open */}
