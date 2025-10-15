@@ -44,6 +44,18 @@ export default function Home() {
   const [ isOpen, setOpen ] = useState(false);
   const [ scrolled, setScrolled ] = useState(false);
   const [ visibleCount, setVisibleCount ] = useState(10);
+  const [ query, setQuery ] = useState("")
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
+
+  // filter search newmovie
+  const filteredMovies = newmovie.filter((movie) =>
+    movie.title.toLowerCase().includes(query.toLowerCase())
+  )
+
+  // filter search trendingmovie
+  const filteredTrending = trendingmovie.filter((movie) =>
+    movie.title.toLowerCase().includes(query.toLowerCase())
+  )
 
   useEffect(() => {
     const handleScroll = () => {
@@ -81,12 +93,40 @@ export default function Home() {
           {/* Search & Menu */}
           <form action="" className=" relative md:flex hidden items-center">
             <img src="/Vector2.png" alt="search" className="absolute pl-3" />
-            <input type="text" placeholder="Search Movie" className="text-[#717680] border bg-[#252B37] border-[#252B37] rounded-lg w-[243px] h-[56] pl-10" />
+            <input 
+            type="text" 
+            placeholder="Search Movie"
+            value={query} 
+            onChange={(e) => setQuery(e.target.value)}
+            className="text-white border bg-[#252B37] border-[#252B37] rounded-lg md:w-[243px] md:h-[56] w-[180px] h-[56px] pl-10" 
+            />
           </form>
-          <div className=" md:hidden flex justify-end items-center gap-4 translate-x-[-13px]">
-            {!isOpen && <img src="/Vector3.png" alt="search" />}
+          {/* Mobile Search Icon & Hamburger */}
+          <div className="md:hidden flex justify-end items-center gap-4 translate-x-[-13px]">
+            {!showMobileSearch && (
+              <img 
+                src="/Vector3.png" 
+                alt="search" 
+                onClick={() => setShowMobileSearch(true)} 
+                className="cursor-pointer"
+              />
+            )}
             <Hamburger toggled={isOpen} toggle={setOpen} color="#fff" size={20}/>
           </div>
+
+
+          {showMobileSearch && (
+            <form className="top-0 left-1/3 content-center  md:hidden absolute flex items-center px-5 mt-2">
+              <img src="/Vector2.png" alt="search" className="absolute pl-3" />
+              <input
+                type="text"
+                placeholder="Search Movie"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="h-[56px] w-[180px] pl-10 rounded-lg bg-[#252B37] border border-[#252B37] text-white "
+              />
+            </form>
+          )}
           {/* Dropdown Menu is Open */}
             {isOpen && (
               <div className="md:hidden text-white pl-5 grid gap-8 content-start fixed md:top-[90px] top-[64px] left-0 w-full h-full z-50 bg-black">
@@ -117,11 +157,11 @@ export default function Home() {
       </div>
 
       {/* Trending Now */}
-      <section className="w-full py-10 md:px-[70px] px-[50px] bg-black md:z-50 relative">
+      <section className="w-full py-10 md:px-[70px] px-[50px] bg-black relative">
         <h1 className="md:pl-5 pl-3 md:text-5xl text-2xl mb-6 font-bold text-white">Trending Now</h1>
         <Carousel className="gap-x-6 px-4  ">
           <CarouselContent>
-            {trendingmovie.map((item, index) => (
+            {(filteredTrending.length ? filteredTrending : trendingmovie).map((item) =>(
               <CarouselItem
                 key={item.id}
                 className="basis-1/2 md:basis-1/5 "
@@ -146,27 +186,32 @@ export default function Home() {
       </section>
 
 
+
       {/* New Release */}
       <section className="w-full py-10 md:px-[80px] px-[50px] bg-black">
-        <h1 className=" md:text-5xl text-2xl mb-6 font-bold text-white">
+        <h1 className="md:text-5xl text-2xl mb-6 font-bold text-white">
           New Release
         </h1>
-        <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 gap-x-17">
-          {newmovie.slice(0, visibleCount).map((item) => (
-            <div key={item.id} className=" grid justify-center items-center">
-              <img
-                src={item.img}
-                alt={item.title}
-                width={216}
-                height={321}
-                className="rounded-xl shadow-lg hover:scale-105 transition-all duration-300"
-              />
-              <h2 className="text-lg font-semibold mt-3 text-[#FDFDFD]">{item.title}</h2>
-              <p className="text-md text-gray-400">⭐ {item.rating}/10</p>
-            </div>
-          ))}
-        </div>
 
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 gap-x-17">
+          {(filteredMovies.length ? filteredMovies : newmovie)
+            .slice(0, visibleCount)
+            .map((item) => (
+              <div key={item.id} className="grid justify-center items-center">
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  width={216}
+                  height={321}
+                  className="rounded-xl shadow-lg hover:scale-105 transition-all duration-300"
+                />
+                <h2 className="text-lg font-semibold mt-3 text-[#FDFDFD]">
+                  {item.title}
+                </h2>
+                <p className="text-md text-gray-400">⭐ {item.rating}/10</p>
+              </div>
+            ))}
+        </div>
         {visibleCount < newmovie.length && (
                 <div className="flex justify-center mt-5">
                   <Button
@@ -178,6 +223,7 @@ export default function Home() {
                 </div>
               )}
       </section>
+    
 
       {/* Footer */}
       <footer className="gap-5 md:pl-20 pl-10 mx-auto bg-black w-full h-[120px] grid md:grid-cols-2 grid-cols-1 justify-center item-center content-center">
