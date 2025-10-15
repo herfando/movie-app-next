@@ -151,7 +151,6 @@ export default function Home() {
         <h1 className=" md:text-5xl text-2xl mb-6 font-bold text-white">
           New Release
         </h1>
-
         <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 gap-x-17">
           {newmovie.slice(0, visibleCount).map((item) => (
             <div key={item.id} className=" grid justify-center items-center">
@@ -167,8 +166,9 @@ export default function Home() {
             </div>
           ))}
         </div>
+
         {visibleCount < newmovie.length && (
-                <div className="flex justify-center mt-10">
+                <div className="flex justify-center mt-5">
                   <Button
                   onClick={() => setVisibleCount((prev) => prev +5)}
                   className="md:w-[230px] md:h-[52px] w-[200px] h-[44px]  rounded-full"
