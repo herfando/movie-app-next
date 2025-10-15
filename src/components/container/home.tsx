@@ -83,7 +83,7 @@ export default function Home() {
           </form>
           <div className=" md:hidden flex justify-end items-center gap-4 translate-x-[-13px]">
             {!isOpen && <img src="/Vector3.png" alt="search" />}
-            <Hamburger toggled={isOpen} toggle={setOpen} color="#fff"/>
+            <Hamburger toggled={isOpen} toggle={setOpen} color="#fff" size={20}/>
           </div>
           {/* Dropdown Menu is Open */}
             {isOpen && (
