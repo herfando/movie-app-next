@@ -2,7 +2,7 @@
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,} from "@/components/ui/carousel"
 import Hamburger from "hamburger-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export interface Movie {
@@ -41,16 +41,32 @@ const newmovie: Movie[] = [
 
 export default function Home() {
   const [ isOpen, setOpen ] = useState(false);
+  const [ scrolled, setScrolled ] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+ 
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
       
-      <div className="relative w-full overflow-hidden bg-black ">
+      <div className="relative w-full bg-black ">
         <img className="w-full absolute md:flex hidden" src="/image1.png" alt="image1" />
         <img className="w-full absolute md:hidden flex" src="/image2.png" alt="image2" />
         {/* Navbar */}
-        <nav  className={`relative z-50 w-full md:h-[90px] h-[64px] mx-auto grid md:grid-cols-[1fr_3fr_1fr] grid-cols-2 justify-around items-center
-                ${isOpen ? "bg-black" : "bg-transparent" }`}
-        >
+        <nav  className={`fixed top-0 z-50 w-full md:h-[90px] h-[64px] mx-auto grid md:grid-cols-[1fr_3fr_1fr] grid-cols-2 justify-around items-center
+          ${isOpen
+              ? "bg-black"
+              : scrolled
+              ? "bg-black/60 backdrop-blur-md shadow-lg"
+              : "bg-transparent"
+            }`}
+          >
           {/* Movie */}
           <div className="md:translate-x-20 translate-x-5 text-[#FDFDFD] flex flex-1 gap-3 items-center">
             <img className="md:w-[33.33px] md:h-[31.18] w-[23.33px] h-[21.82px]" src="/Vector1.png" alt="logo movie" />
@@ -71,9 +87,8 @@ export default function Home() {
           </div>
           {/* Dropdown Menu is Open */}
             {isOpen && (
-              <div className="text-white fixed md:top-[90px] top-[64px] left-0 w-full h-[10000px] z-50 bg-black">
-                
-                <span>Home</span>
+              <div className="md:hidden text-white pl-5 grid gap-8 content-start fixed md:top-[90px] top-[64px] left-0 w-full h-full z-50 bg-black">
+                <span className="pt-4">Home</span>
                 <span>Favorites</span>
               </div>
             )}
