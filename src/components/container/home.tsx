@@ -3,6 +3,7 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,} from "@/components/ui/carousel"
 import Hamburger from "hamburger-react";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button"
 
 
 export interface Movie {
@@ -42,6 +43,7 @@ const newmovie: Movie[] = [
 export default function Home() {
   const [ isOpen, setOpen ] = useState(false);
   const [ scrolled, setScrolled ] = useState(false);
+  const [ visibleCount, setVisibleCount ] = useState(10);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +61,7 @@ export default function Home() {
         <img className="w-full absolute md:flex hidden" src="/image1.png" alt="image1" />
         <img className="w-full absolute md:hidden flex" src="/image2.png" alt="image2" />
         {/* Navbar */}
-        <nav  className={`fixed top-0 z-50 w-full md:h-[90px] h-[64px] mx-auto grid md:grid-cols-[1fr_3fr_1fr] grid-cols-2 justify-around items-center
+        <nav  className={`fixed top-0 z-30 w-full md:h-[90px] h-[64px] mx-auto grid md:grid-cols-[1fr_3fr_1fr] grid-cols-2 justify-around items-center
           ${isOpen
               ? "bg-black"
               : scrolled
@@ -115,16 +117,16 @@ export default function Home() {
       </div>
 
       {/* Trending Now */}
-      <section className="w-full py-10 md:px-[80px] px-[50px] bg-black">
-        <h1 className="md:text-5xl text-2xl mb-6 font-bold text-white">Trending Now</h1>
-        <Carousel className="w-full mx-auto ">
+      <section className="w-full py-10 md:px-[70px] px-[50px] bg-black md:z-50 relative">
+        <h1 className="md:pl-5 pl-3 md:text-5xl text-2xl mb-6 font-bold text-white">Trending Now</h1>
+        <Carousel className="gap-x-6 px-4  ">
           <CarouselContent>
             {trendingmovie.map((item, index) => (
               <CarouselItem
                 key={item.id}
-                className="basis-1/2 md:basis-1/3 lg:basis-1/5"
+                className="basis-1/2 md:basis-1/5 "
               >
-                <div className="grid justify-start items-center">
+                <div className="bg- grid justify-center items-center ">
                   <img
                     src={item.img}
                     alt={item.title}
@@ -146,13 +148,13 @@ export default function Home() {
 
       {/* New Release */}
       <section className="w-full py-10 md:px-[80px] px-[50px] bg-black">
-        <h1 className="md:text-5xl text-2xl mb-6 font-bold text-white">
+        <h1 className=" md:text-5xl text-2xl mb-6 font-bold text-white">
           New Release
         </h1>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {newmovie.map((item) => (
-            <div key={item.id} className=" grid justify-start items-center">
+        <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 gap-x-17">
+          {newmovie.slice(0, visibleCount).map((item) => (
+            <div key={item.id} className=" grid justify-center items-center">
               <img
                 src={item.img}
                 alt={item.title}
@@ -165,6 +167,16 @@ export default function Home() {
             </div>
           ))}
         </div>
+        {visibleCount < newmovie.length && (
+                <div className="flex justify-center mt-10">
+                  <Button
+                  onClick={() => setVisibleCount((prev) => prev +5)}
+                  className="md:w-[230px] md:h-[52px] w-[200px] h-[44px]  rounded-full"
+                  >
+                    Load More
+                  </Button>
+                </div>
+              )}
       </section>
 
       {/* Footer */}
