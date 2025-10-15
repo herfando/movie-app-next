@@ -1,6 +1,8 @@
 "use client"
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,} from "@/components/ui/carousel"
+import Hamburger from "hamburger-react";
+import { useState } from "react";
 
 
 export interface Movie {
@@ -37,22 +39,20 @@ const newmovie: Movie[] = [
   { id: 21, img: "/movie21.png", title:"The Order", rating: "6.6" },
 ];
 
-
-
-
-
-export default function home() {
+export default function Home() {
+  const [ isOpen, setOpen ] = useState(false);
   return (
     <>
-      <div className="relative w-full overflow-hidden bg-black -z-20">
-        <img className="w-full absolute -z-10 sm:flex hidden" src="/image1.png" alt="image1" />
-        <img className="w-full absolute -z-10 sm:hidden flex" src="/image2.png" alt="image2" />
-        {/* Navigation */}
-        <nav className="w-full sm:h-[90px] h-[64px] mx-auto grid sm:grid-cols-[1fr_3fr_1fr] grid-cols-2 justify-around items-center">
+      
+      <div className="relative w-full overflow-hidden bg-black ">
+        <img className="w-full absolute md:flex hidden" src="/image1.png" alt="image1" />
+        <img className="w-full absolute md:hidden flex" src="/image2.png" alt="image2" />
+        {/* Navbar */}
+        <nav className="w-full md:h-[90px] h-[64px] mx-auto grid md:grid-cols-[1fr_3fr_1fr] grid-cols-2 justify-around items-center">
           {/* Movie */}
-          <div className="sm:translate-x-20 translate-x-5 text-[#FDFDFD] flex flex-1 gap-3 items-center">
-            <img className="sm:w-[33.33px] sm:h-[31.18] w-[23.33px] h-[21.82px]" src="/Vector1.png" alt="logo movie" />
-            <h1 className="sm:text-[28.4px] text-[19.9px]">Movie</h1>
+          <div className="md:translate-x-20 translate-x-5 text-[#FDFDFD] flex flex-1 gap-3 items-center">
+            <img className="md:w-[33.33px] md:h-[31.18] w-[23.33px] h-[21.82px]" src="/Vector1.png" alt="logo movie" />
+            <h1 className="md:text-[28.4px] text-[19.9px]">Movie</h1>
           </div>
           {/* Middle list */}
           <h2 className="text-[#FFFFFF] md:flex flex-1 gap-10 hidden font-medium">
@@ -63,25 +63,33 @@ export default function home() {
             <img src="/Vector2.png" alt="search" className="absolute pl-3" />
             <input type="text" placeholder="Search Movie" className="text-[#717680] border bg-[#252B37] border-[#252B37] rounded-lg w-[243px] h-[56] pl-10" />
           </form>
-          <div className="md:hidden flex justify-end items-center gap-4 translate-x-[-13px]">
+          <div className=" md:hidden flex justify-end items-center gap-4 translate-x-[-13px]">
             <img src="/Vector3.png" alt="search" />
-            <img src="/Menu1.png" alt="search" />
+            <Hamburger toggled={isOpen} toggle={setOpen} color="#fff"/>
           </div>
+          {/* Dropdown Menu is Open */}
+            {isOpen && (
+              <div className="text-white fixed md:top-[90px] top-[64px] left-0 w-full h-[10000px] z-50 bg-black">
+                
+                <span>Home</span>
+                <span>Favorites</span>
+              </div>
+            )}
         </nav>
 
         {/* Hero */}
-        <section className="w-full sm:h-[673px] h-[448px] flex items-center">
+        <section className="w-full md:h-[673px] h-[448px] flex items-center">
           {/* Text */}
-          <div className="translate-x-3 mr-4 translate-y-[60px] sm:translate-y-0 sm:translate-x-20 pl-0 sm:w-[635px] w-full grid sm:gap-7 gap-2">
-            <h1 className="text-2xl sm:text-5xl font-bold text-[#FDFDFD]">The Gorge</h1>
+          <div className="translate-x-3 mr-4 translate-y-[60px] md:translate-y-0 md:translate-x-20 pl-0 md:w-[635px] w-full grid md:gap-7 gap-2">
+            <h1 className="text-2xl md:text-5xl font-bold text-[#FDFDFD]">The Gorge</h1>
             <h4 className="text-md font-medium text-[#A4A7AE]">Two highly trained operatives grow close from a distance after being sent to guard opposite sides of a mysterious gorge. When an evil below emerges, they must work together to survive what lies within.</h4>
             {/* Button */}
-            <div className="gap-4 sm:gap-0 grid sm:grid-cols-2 grid-cols-1 sm:mt-5 text-[#FDFDFD]">
-              <form action="" className="h-[44px] w-full flex justify-center items-center sm:h-[52px] sm:w-[230px] relative rounded-full bg-[#961200]">
+            <div className="gap-4 md:gap-0 grid md:grid-cols-2 grid-cols-1 md:mt-5 text-[#FDFDFD]">
+              <form action="" className="h-[44px] w-full flex justify-center items-center md:h-[52px] md:w-[230px] relative rounded-full bg-[#961200]">
                 <button type="submit">Watch Trailer</button>
                 <img src="/Play.png" alt="vektor" className="pl-2" />
               </form>
-              <form action="" className="h-[44px] w-full sm:translate-x-[-60px] flex justify-center items-center sm:h-[52px] sm:w-[230px] bg-[#181D27] rounded-full">
+              <form action="" className="h-[44px] w-full md:translate-x-[-60px] flex justify-center items-center md:h-[52px] md:w-[230px] bg-[#181D27] rounded-full">
                 <button type="submit">See Detail</button>
               </form>
             </div>
@@ -90,14 +98,14 @@ export default function home() {
       </div>
 
       {/* Trending Now */}
-      <section className="w-full py-10 sm:px-[80px] px-[50px] bg-black">
-        <h1 className="sm:text-5xl text-2xl mb-6 font-bold text-white">Trending Now</h1>
+      <section className="w-full py-10 md:px-[80px] px-[50px] bg-black">
+        <h1 className="md:text-5xl text-2xl mb-6 font-bold text-white">Trending Now</h1>
         <Carousel className="w-full mx-auto ">
           <CarouselContent>
-            {trendingmovie.map((item) => (
+            {trendingmovie.map((item, index) => (
               <CarouselItem
                 key={item.id}
-                className="basis-1/2 sm:basis-1/3 lg:basis-1/5"
+                className="basis-1/2 md:basis-1/3 lg:basis-1/5"
               >
                 <div className="grid justify-start items-center">
                   <img
@@ -108,7 +116,7 @@ export default function home() {
                     className="rounded-xl shadow-lg hover:scale-105 transition-all duration-300"
                   />
                   <h2 className="text-lg font-semibold mt-3 text-[#FDFDFD]">{item.title}</h2>
-                  <p className="text-sm text-gray-400">⭐ {item.rating}/10</p>
+                  <p className="text-md text-gray-400">⭐ {item.rating}/10</p>
                 </div>
               </CarouselItem>
             ))}
@@ -120,12 +128,12 @@ export default function home() {
 
 
       {/* New Release */}
-      <section className="w-full py-10 sm:px-[80px] px-[50px] bg-black">
-        <h1 className="sm:text-5xl text-2xl mb-6 font-bold text-white">
+      <section className="w-full py-10 md:px-[80px] px-[50px] bg-black">
+        <h1 className="md:text-5xl text-2xl mb-6 font-bold text-white">
           New Release
         </h1>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {newmovie.map((item) => (
             <div key={item.id} className=" grid justify-start items-center">
               <img
@@ -136,7 +144,7 @@ export default function home() {
                 className="rounded-xl shadow-lg hover:scale-105 transition-all duration-300"
               />
               <h2 className="text-lg font-semibold mt-3 text-[#FDFDFD]">{item.title}</h2>
-              <p className="text-sm text-gray-400">⭐ {item.rating}/10</p>
+              <p className="text-md text-gray-400">⭐ {item.rating}/10</p>
             </div>
           ))}
         </div>
@@ -146,8 +154,8 @@ export default function home() {
       <footer className="gap-5 md:pl-20 pl-10 mx-auto bg-black w-full h-[120px] grid md:grid-cols-2 grid-cols-1 justify-center item-center content-center">
         {/* Movie */}
         <div className=" text-[#FDFDFD] flex flex-1 gap-3 items-center">
-          <img className=" sm:w-[33.33px] sm:h-[31.18] w-[23.33px] h-[21.82px]" src="/Vector1.png" alt="logo movie" />
-          <h1 className="sm:text-[28.4px] text-[19.9px]">Movie</h1>
+          <img className=" md:w-[33.33px] md:h-[31.18] w-[23.33px] h-[21.82px]" src="/Vector1.png" alt="logo movie" />
+          <h1 className="md:text-[28.4px] text-[19.9px]">Movie</h1>
         </div> 
         {/* Copyright */}
         <p className=" text-[#535862] md:pl-55 pl-0  grid md:justify-center justify-start items-center">Copyright &copy; {new Date().getFullYear()} Movie Explorer</p>
