@@ -1,71 +1,31 @@
-"use client"
+"use client";
 
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,} from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Hamburger from "hamburger-react";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import { useFetchMovies } from "@/hooks/useFetchMovies";
-
-
-// export interface Movie {
-//   id: number;
-//   img: string;
-//   title: string;
-//   rating: string;
-// }
-
-// const trendingmovie: Movie[] = [
-//   { id: 1, img: "/movie1.png", title:"The Gorge", rating: "7.9" },
-//   { id: 2, img: "/movie2.png", title:"Mufasa: The Lion King", rating: "7.9" },
-//   { id: 3, img: "/movie3.png", title:"The Brutalist", rating: "7.9" },
-//   { id: 4, img: "/movie4.png", title:"Companion", rating: "7.9" },
-//   { id: 5, img: "/movie5.png", title:"Brave New World", rating: "7.9" },
-//   { id: 6, img: "/movie6.png", title:"Dog Man", rating: "7.0" },
-// ];
-
-// const newmovie: Movie[] = [
-//   { id: 7, img: "/movie7.png", title:"Conclave", rating: "7.1" },
-//   { id: 8, img: "/movie8.png", title:"Flight Risk", rating: "5.8" },
-//   { id: 9, img: "/movie9.png", title:"Paddington in Peru", rating: "7.0" },
-//   { id: 10, img: "/movie10.png", title:"My Fault: London", rating: "7.67" },
-//   { id: 11, img: "/movie11.png", title:"Mad About the Boy", rating: "6.8" },
-//   { id: 12, img: "/movie12.png", title:"Better Man", rating: "7.5" },
-//   { id: 13, img: "/movie13.png", title:"Sirens of the Deep", rating: "7.3" },
-//   { id: 14, img: "/movie14.png", title:"Nosferatu", rating: "6.7" },
-//   { id: 15, img: "/movie15.png", title:"September 5", rating: "6.9" },
-//   { id: 16, img: "/movie16.png", title:"Anora", rating: "7.0" },
-//   { id: 17, img: "/movie17.png", title:"Ne Zha 2", rating: "7.8" },
-//   { id: 18, img: "/movie18.png", title:"The Last Showgirl", rating: "6.7" },
-//   { id: 19, img: "/movie19.png", title:"Sonic the Hedgehog 3", rating: "7.7" },
-//   { id: 20, img: "/movie20.png", title:"La Dolce Villa", rating: "6.4" },
-//   { id: 21, img: "/movie21.png", title:"The Order", rating: "6.6" },
-// ];
+import Image from "next/image";
 
 export default function Home() {
-  const [ isOpen, setOpen ] = useState(false);
-  const [ scrolled, setScrolled ] = useState(false);
-  const [ visibleCount, setVisibleCount ] = useState(10);
-  const [ query, setQuery ] = useState("")
+  const [isOpen, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(10);
+  const [query, setQuery] = useState("");
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const { trending, newRelease, loading } = useFetchMovies();
 
-  // filter search newreleasemovie
   const filteredNewRelease = newRelease.filter((movie) =>
     movie.title.toLowerCase().includes(query.toLowerCase())
   );
-
-  // filter search trendingmovie
   const filteredTrending = trending.filter((movie) =>
     movie.title.toLowerCase().includes(query.toLowerCase())
   );
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
- 
-  window.addEventListener("scroll", handleScroll);
-  return () => window.removeEventListener("scroll", handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -75,8 +35,8 @@ export default function Home() {
       ) : (
         <div className="relative w-full bg-black">
           {/* Background */}
-          <img className="w-full absolute md:flex hidden" src="/image1.png" alt="image1" />
-          <img className="w-full absolute md:hidden flex" src="/image2.png" alt="image2" />
+          <Image className="w-full absolute md:flex hidden" src="/image1.png" alt="image1" width={1920} height={1080} />
+          <Image className="w-full absolute md:hidden flex" src="/image2.png" alt="image2" width={1920} height={1080} />
 
           {/* Navbar */}
           <nav
@@ -90,10 +50,12 @@ export default function Home() {
           >
             {/* Logo */}
             <div className="md:translate-x-20 translate-x-5 text-[#FDFDFD] flex flex-1 gap-3 items-center">
-              <img
+              <Image
                 className="md:w-[33.33px] md:h-[31.18] w-[23.33px] h-[21.82px]"
                 src="/Vector1.png"
                 alt="logo movie"
+                width={33}
+                height={31}
               />
               <h1 className="md:text-[28.4px] text-[19.9px]">Movie</h1>
             </div>
@@ -105,7 +67,7 @@ export default function Home() {
 
             {/* Desktop Search */}
             <form className="relative md:flex hidden items-center">
-              <img src="/Vector2.png" alt="search" className="absolute pl-3" />
+              <Image src="/Vector2.png" alt="search" className="absolute pl-3" width={30} height={30} />
               <input
                 type="text"
                 placeholder="Search Movie"
@@ -118,11 +80,13 @@ export default function Home() {
             {/* Mobile Search Icon & Hamburger */}
             <div className="md:hidden flex justify-end items-center gap-4 translate-x-[-13px]">
               {!showMobileSearch && (
-                <img
+                <Image
                   src="/Vector3.png"
                   alt="search"
                   onClick={() => setShowMobileSearch(true)}
                   className="cursor-pointer"
+                  width={20}
+                  height={20}
                 />
               )}
               <Hamburger toggled={isOpen} toggle={setOpen} color="#fff" size={20} />
@@ -131,7 +95,7 @@ export default function Home() {
             {/* Mobile Search Input */}
             {showMobileSearch && (
               <form className="top-0 left-1/3 md:hidden absolute flex items-center px-5 mt-2">
-                <img src="/Vector2.png" alt="search" className="absolute pl-3" />
+                <Image src="/Vector2.png" alt="search" className="absolute pl-3" width={30} height={30} />
                 <input
                   type="text"
                   placeholder="Search Movie"
@@ -159,17 +123,11 @@ export default function Home() {
                 Two highly trained operatives grow close from a distance after being sent to guard opposite sides of a mysterious gorge. When an evil below emerges, they must work together to survive what lies within.
               </h4>
               <div className="gap-4 md:gap-0 grid md:grid-cols-2 grid-cols-1 md:mt-5 text-[#FDFDFD]">
-                <form
-                  action=""
-                  className="h-[44px] w-full flex justify-center items-center md:h-[52px] md:w-[230px] relative rounded-full bg-[#961200]"
-                >
+                <form className="h-[44px] w-full flex justify-center items-center md:h-[52px] md:w-[230px] relative rounded-full bg-[#961200]">
                   <button type="submit">Watch Trailer</button>
-                  <img src="/Play.png" alt="vektor" className="pl-2" />
+                  <Image src="/Play.png" alt="vektor" className="pl-2" width={30} height={30} />
                 </form>
-                <form
-                  action=""
-                  className="h-[44px] w-full md:translate-x-[-60px] flex justify-center items-center md:h-[52px] md:w-[230px] bg-[#181D27] rounded-full"
-                >
+                <form className="h-[44px] w-full md:translate-x-[-60px] flex justify-center items-center md:h-[52px] md:w-[230px] bg-[#181D27] rounded-full">
                   <button type="submit">See Detail</button>
                 </form>
               </div>
@@ -184,7 +142,7 @@ export default function Home() {
                 {filteredTrending.map((item) => (
                   <CarouselItem key={item.id} className="basis-1/2 md:basis-1/5">
                     <div className="grid justify-center items-center">
-                      <img
+                      <Image
                         src={item.img}
                         alt={item.title}
                         width={216}
@@ -208,7 +166,7 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 gap-x-17">
               {filteredNewRelease.slice(0, visibleCount).map((item) => (
                 <div key={item.id} className="grid justify-center items-center">
-                  <img
+                  <Image
                     src={item.img}
                     alt={item.title}
                     width={216}
@@ -235,10 +193,12 @@ export default function Home() {
           {/* Footer */}
           <footer className="gap-5 md:pl-20 pl-10 mx-auto bg-black w-full h-[120px] grid md:grid-cols-2 grid-cols-1 justify-center item-center content-center">
             <div className="text-[#FDFDFD] flex flex-1 gap-3 items-center">
-              <img
+              <Image
                 className="md:w-[33.33px] md:h-[31.18] w-[23.33px] h-[21.82px]"
                 src="/Vector1.png"
                 alt="logo movie"
+                width={33}
+                height={31}
               />
               <h1 className="md:text-[28.4px] text-[19.9px]">Movie</h1>
             </div>
