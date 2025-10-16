@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-// Tipe untuk data movie yang akan digunakan di komponen
 export interface Movie {
     id: number;
     title: string;
@@ -10,7 +9,6 @@ export interface Movie {
     rating: string;
 }
 
-// Tipe data asli dari API TMDb (subset yang kita butuhkan saja)
 interface TMDBMovie {
     id: number;
     title: string;
