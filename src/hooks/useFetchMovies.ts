@@ -1,62 +1,74 @@
-"use strict";
+"use client";
 
 import { useEffect, useState } from "react";
 
+// Tipe untuk data movie yang akan digunakan di komponen
 export interface Movie {
     id: number;
-    img: string;
     title: string;
-    rating: number;
+    img: string;
+    rating: string;
 }
 
+// Tipe data asli dari API TMDb (subset yang kita butuhkan saja)
+interface TMDBMovie {
+    id: number;
+    title: string;
+    poster_path: string | null;
+    vote_average: number;
+}
+
+// Hook utama untuk fetch data
 export function useFetchMovies() {
     const [trending, setTrending] = useState<Movie[]>([]);
     const [newRelease, setNewRelease] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchMovies() {
+        const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+        const BASE_URL = "https://api.themoviedb.org/3";
+
+        const fetchMovies = async () => {
             try {
-                setLoading(true);
-                const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+                // Ambil data trending dan new release secara paralel
+                const [trendingRes, newReleaseRes] = await Promise.all([
+                    fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`),
+                    fetch(`${BASE_URL}/movie/now_playing?api_key=${API_KEY}&page=1`),
+                ]);
 
-                // Fetch Trending Movies
-                const trendingRes = await fetch(
-                    `https://api.themoviedb.org/3/trending/movie/week?api_key=${key}`
-                );
                 const trendingData = await trendingRes.json();
-                setTrending(
-                    trendingData.results.map((item: any) => ({
-                        id: item.id,
-                        title: item.title,
-                        img: item.poster_path
-                            ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                            : "/fallback.png",
-                        rating: item.vote_average,
-                    }))
-                );
+                const newReleaseData = await newReleaseRes.json();
 
-                // Fetch Now Playing / New Releases
-                const newRes = await fetch(
-                    `https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&language=en-US&page=1`
-                );
-                const newData = await newRes.json();
-                setNewRelease(
-                    newData.results.map((item: any) => ({
-                        id: item.id,
-                        title: item.title,
-                        img: item.poster_path
-                            ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+                // Pastikan hasil API valid sebelum map
+                if (Array.isArray(trendingData.results)) {
+                    const trendingMovies: Movie[] = trendingData.results.map((m: TMDBMovie) => ({
+                        id: m.id,
+                        title: m.title,
+                        img: m.poster_path
+                            ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
                             : "/fallback.png",
-                        rating: item.vote_average,
-                    }))
-                );
-            } catch (err) {
-                console.error("Error fetching movies:", err);
+                        rating: m.vote_average ? m.vote_average.toFixed(1) : "N/A",
+                    }));
+                    setTrending(trendingMovies);
+                }
+
+                if (Array.isArray(newReleaseData.results)) {
+                    const newReleaseMovies: Movie[] = newReleaseData.results.map((m: TMDBMovie) => ({
+                        id: m.id,
+                        title: m.title,
+                        img: m.poster_path
+                            ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
+                            : "/fallback.png",
+                        rating: m.vote_average ? m.vote_average.toFixed(1) : "N/A",
+                    }));
+                    setNewRelease(newReleaseMovies);
+                }
+            } catch (error) {
+                console.error("Error fetching movies:", error);
             } finally {
                 setLoading(false);
             }
-        }
+        };
 
         fetchMovies();
     }, []);

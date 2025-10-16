@@ -95,7 +95,7 @@ export default function Home() {
             {/* Mobile Search Input */}
             {showMobileSearch && (
               <form className="top-0 left-1/3 md:hidden absolute flex items-center px-5 mt-2">
-                <Image src="/Vector2.png" alt="search" className="absolute pl-3" width={30} height={30} />
+                <Image src="/Vector2.png" alt="search" className="absolute pl-3" width={30} height={0} />
                 <input
                   type="text"
                   placeholder="Search Movie"
