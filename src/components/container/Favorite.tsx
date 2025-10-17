@@ -31,8 +31,8 @@ export default function Favorite() {
             </div>
             <div className="text-white gap-5 flex mt-5">
               <div className="rounded-2xl flex flex-col gap-2 content-center w-[276px] h-[146px] bg-[#000000] justify-center items-center"> <Star className="stroke-[#E4A802] fill-[#E4A802]"/>Rating <span>6.2/10</span> </div>
-              <div className="rounded-2xl flex flex-col gap-2 content-center w-[276px] h-[146px] bg-[#000000] justify-center items-center"> <Star className="stroke-[#E4A802] fill-[#E4A802]"/>Rating <span>6.2/10</span> </div>
-              <div className="rounded-2xl flex flex-col gap-2 content-center w-[276px] h-[146px] bg-[#000000] justify-center items-center"> <Star className="stroke-[#E4A802] fill-[#E4A802]"/>Rating <span>6.2/10</span> </div>
+              <div className="rounded-2xl flex flex-col gap-2 content-center w-[276px] h-[146px] bg-[#000000] justify-center items-center"> <Video className="stroke-white fill-white"/>Genre <span>Action</span> </div>
+              <div className="rounded-2xl flex flex-col gap-2 content-center w-[276px] h-[146px] bg-[#000000] justify-center items-center"> <Image src="/Vector4.png" alt="agelimit" width={26.65} height={26.67}/>Age Limit<span>13</span> </div>
               
 
               
