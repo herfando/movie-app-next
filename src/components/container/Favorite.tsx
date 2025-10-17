@@ -40,14 +40,35 @@ export default function Favorite() {
         
         {/* Overview */}
         <div className="absolute translate-y-45 md:translate-x-20 translate-x-5 mr-40 ">
-          <h1 className="text-4xl text-white font-bold mb-4">Overview</h1>
+          <h1 className="text-3xl text-white font-bold mb-4">Overview</h1>
           <span className="text-[#A4A7AE] text-l">After meeting with newly elected U.S. President Thaddeus Ross, Sam finds himself in the middle of an international incident. He must discover the reason behind a nefarious global plot before the true mastermind has the entire world seeing red.</span>
         </div>
 
-        {/* Overview */}
-        <div className="absolute translate-y-80  md:translate-x-20 translate-x-5">
-          <h1 className="text-4xl text-white font-bold mb-4">Cast & Crew</h1>
-          <span className="text-[#A4A7AE] text-l">After meeting with newly elected U.S. President Thaddeus Ross, Sam finds himself in the middle of an international incident. He must discover the reason behind a nefarious global plot before the true mastermind has the entire world seeing red.</span>
+        {/* Cast & Crew */}
+        <div className="absolute translate-y-115  md:translate-x-20 translate-x-5">
+          <h1 className="text-3xl text-white font-bold mb-8">Cast & Crew</h1>
+          <div className="grid grid-cols-3 gap-15">
+            <div className="flex gap-4">
+              <Image src="/image5.png" alt="Anthony Mackie" width={69} height={104}/>
+              <h4 className="gap-2 grid content-center text-white">Anthony Mackie<span className="text-[#A4A7AE]">Sam Wilson / Captain America</span></h4>
+            </div>
+            <div className="flex gap-4">
+              <Image src="/image6.png" alt="Anthony Mackie" width={69} height={104}/>
+              <h4 className="gap-2 grid content-center text-white">Harrison Ford<span className="text-[#A4A7AE]">President Thaddeus Ross</span></h4>
+            </div>
+            <div className="flex gap-4">
+              <Image src="/image7.png" alt="Anthony Mackie" width={69} height={104}/>
+              <h4 className="gap-2 grid content-center text-white">Danny Ramirez<span className="text-[#A4A7AE]">Joaquin Torres</span></h4>
+            </div>
+            <div className="flex gap-4">
+              <Image src="/image8.png" alt="Anthony Mackie" width={69} height={104}/>
+              <h4 className="gap-2 grid content-center text-white">Shira Haas<span className="text-[#A4A7AE]">Ruth Bat-Seraph</span></h4>
+            </div>
+            <div className="flex gap-4">
+              <Image src="/image9.png" alt="Anthony Mackie" width={69} height={104}/>
+              <h4 className="gap-2 grid content-center text-white">Tim Blake Nelson<span className="text-[#A4A7AE]">Samuel Sterns</span></h4>
+            </div>
+          </div>
         </div>
       </section>
         );
