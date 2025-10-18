@@ -11,6 +11,15 @@ interface Movie {
   overview: string;
 }
 
+interface TmdbVideo {
+  id: string;
+  key: string;
+  name: string;
+  site: string;
+  type: string;
+}
+
+
 export default function Hero() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -59,7 +68,7 @@ export default function Hero() {
       );
       const data = await res.json();
       const trailer = data.results.find(
-        (vid: any) => vid.type === "Trailer" && vid.site === "YouTube"
+        (vid: TmdbVideo) => vid.type === "Trailer" && vid.site === "YouTube"
       );
 
       if (trailer) {
