@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Hamburger from "hamburger-react";
+import Link from "next/link";
 
 interface NavbarProps {
   query: string;
@@ -44,7 +45,8 @@ export default function Navbar({ query, setQuery }: NavbarProps) {
 
             {/* Menu */}
             <h2 className="text-[#FFFFFF] md:flex flex-1 gap-10 hidden font-medium">
-              <span>Home</span> <span>Favorites</span>
+              <Link href="/" className="hover:text-[#E50914] transition">Home</Link>
+              <Link href="/favorite" className="hover:text-[#E50914] transition">Favorites</Link>
             </h2>
 
             {/* Desktop Search */}
@@ -89,12 +91,24 @@ export default function Navbar({ query, setQuery }: NavbarProps) {
             )}
 
             {/* Mobile Dropdown */}
-            {isOpen && (
-              <div className="md:hidden text-white pl-5 grid gap-8 content-start fixed md:top-[90px] top-[64px] left-0 w-full h-full z-50 bg-black">
-                <span className="pt-4">Home</span>
-                <span>Favorites</span>
-              </div>
-            )}
-          </nav>
+             {isOpen && (
+        <div className="md:hidden text-white pl-5 grid gap-8 content-start fixed md:top-[90px] top-[64px] left-0 w-full h-full z-50 bg-black">
+          <Link
+            href="/"
+            className="pt-4 hover:text-[#E50914] transition"
+            onClick={() => setOpen(false)} // tutup menu setelah klik
+          >
+            Home
+          </Link>
+          <Link
+            href="/favorite"
+            className="hover:text-[#E50914] transition"
+            onClick={() => setOpen(false)} // tutup menu setelah klik
+          >
+            Favorites
+          </Link>
+        </div>
+      )}
+    </nav>
   );
 }

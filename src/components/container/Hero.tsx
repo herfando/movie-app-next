@@ -113,7 +113,7 @@ export default function Hero() {
           <button
             onClick={handleWatchTrailer}
             className="cursor-pointer h-[44px] w-full flex justify-center items-center md:h-[52px] md:w-[230px] rounded-full bg-[#961200] hover:bg-[#b81500] transition"
-          >
+          > Watch Trailer
             <Image
               src="/Play.png"
               alt="play"
@@ -121,7 +121,6 @@ export default function Hero() {
               width={30}
               height={30}
             />
-            Watch Trailer
           </button>
 
           <button
