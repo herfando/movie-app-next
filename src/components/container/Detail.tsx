@@ -2,7 +2,7 @@
 
 import Image from "next/image"; 
 import { Heart, Calendar, Star, Video } from "lucide-react"
-export default function Favorite() {
+export default function Detail() {
   return (
       <section className="bg-black w-full md:h-[1383px] h-[1345px] flex items-center relative overflow-hidden">
         <Image className="md:flex hidden top-0 left-0 w-full absolute" src="/image3.png" alt="background" width={1920} height={1080} />

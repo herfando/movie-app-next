@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { useFetchMovies } from "@/hooks/useFetchMovies";
 import Navbar from "@/components/container/Navbar";
-import Favorite from "@/components/container/Favorite";
+import Detail from "@/components/container/Detail";
 import Footer from "@/components/container/Footer";
 
 
-export default function Detail() {
+export default function DetailPage() {
   const { trending, newRelease, loading } = useFetchMovies();
     const [query, setQuery] = useState("");
   
@@ -22,7 +22,7 @@ export default function Detail() {
   return (
   <div>
     <Navbar query={query} setQuery={setQuery} />
-    <Favorite />
+    <Detail />
     <Footer />
   </div>
   ) 

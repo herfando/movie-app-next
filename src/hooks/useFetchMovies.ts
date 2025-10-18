@@ -16,7 +16,6 @@ interface TMDBMovie {
     vote_average: number;
 }
 
-// Hook utama untuk fetch data
 export function useFetchMovies() {
     const [trending, setTrending] = useState<Movie[]>([]);
     const [newRelease, setNewRelease] = useState<Movie[]>([]);
@@ -28,7 +27,6 @@ export function useFetchMovies() {
 
         const fetchMovies = async () => {
             try {
-                // Ambil data trending dan new release secara paralel
                 const [trendingRes, newReleaseRes] = await Promise.all([
                     fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`),
                     fetch(`${BASE_URL}/movie/now_playing?api_key=${API_KEY}&page=1`),
@@ -37,30 +35,27 @@ export function useFetchMovies() {
                 const trendingData = await trendingRes.json();
                 const newReleaseData = await newReleaseRes.json();
 
-                // Pastikan hasil API valid sebelum map
-                if (Array.isArray(trendingData.results)) {
-                    const trendingMovies: Movie[] = trendingData.results.map((m: TMDBMovie) => ({
+                setTrending(
+                    trendingData.results.map((m: TMDBMovie) => ({
                         id: m.id,
                         title: m.title,
                         img: m.poster_path
                             ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
                             : "/fallback.png",
                         rating: m.vote_average ? m.vote_average.toFixed(1) : "N/A",
-                    }));
-                    setTrending(trendingMovies);
-                }
+                    }))
+                );
 
-                if (Array.isArray(newReleaseData.results)) {
-                    const newReleaseMovies: Movie[] = newReleaseData.results.map((m: TMDBMovie) => ({
+                setNewRelease(
+                    newReleaseData.results.map((m: TMDBMovie) => ({
                         id: m.id,
                         title: m.title,
                         img: m.poster_path
                             ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
                             : "/fallback.png",
                         rating: m.vote_average ? m.vote_average.toFixed(1) : "N/A",
-                    }));
-                    setNewRelease(newReleaseMovies);
-                }
+                    }))
+                );
             } catch (error) {
                 console.error("Error fetching movies:", error);
             } finally {
