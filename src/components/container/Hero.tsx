@@ -1,6 +1,32 @@
+"use client"
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  backdroup_path: string;
+}
+
+// Tipe data untuk trailer
+interface VideoResult {
+  key: string;
+  type: string;
+  site: string;
+}
 
 export default function Hero() {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const router = useRouter();
+
+  // ambil data trending movie dari TMDB
+  
+
+
   return (
     <section className="w-full md:h-[673px] h-[448px] flex items-center relative">
       <Image className="w-full absolute md:flex hidden" src="/image1.png" alt="bg" width={1920} height={1080} />
