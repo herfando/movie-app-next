@@ -44,8 +44,8 @@ export default function Navbar({ query, setQuery }: NavbarProps) {
             </div>
 
             {/* Menu */}
-            <h2 className="text-[#FFFFFF] md:flex flex-1 gap-10 hidden font-medium">
-              <Link href="/" className="hover:text-[#E50914] transition">Home</Link>
+            <h2 className="text-[#FFFFFF] z-30 md:flex flex-1 gap-10 hidden font-medium">
+              <Link href="/home" className="hover:text-[#E50914] transition">Home</Link>
               <Link href="/favorite" className="hover:text-[#E50914] transition">Favorites</Link>
             </h2>
 
@@ -94,7 +94,7 @@ export default function Navbar({ query, setQuery }: NavbarProps) {
              {isOpen && (
         <div className="md:hidden text-white pl-5 grid gap-8 content-start fixed md:top-[90px] top-[64px] left-0 w-full h-full z-50 bg-black">
           <Link
-            href="/"
+            href="/home"
             className="pt-4 hover:text-[#E50914] transition"
             onClick={() => setOpen(false)} // tutup menu setelah klik
           >

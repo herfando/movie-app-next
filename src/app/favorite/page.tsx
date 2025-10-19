@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Navbar from "@/components/container/Navbar";
+import Footer from "@/components/container/Footer";
+
 
 interface Movie {
   id: number;
@@ -12,6 +15,7 @@ interface Movie {
 
 export default function Favorite() {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     async function fetchFavorites() {
@@ -30,6 +34,8 @@ export default function Favorite() {
   }, []);
 
   return (
+    <>
+    <Navbar query={query} setQuery={setQuery} />
     <section className="bg-black min-h-screen text-white py-20 px-10">
       <h1 className="text-4xl font-bold mb-10">Favorite Movies</h1>
       <div className="grid md:grid-cols-5 grid-cols-2 gap-6">
@@ -50,5 +56,7 @@ export default function Favorite() {
         ))}
       </div>
     </section>
+    <Footer />
+    </>
   );
 }
