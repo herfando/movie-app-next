@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Heart, Star, Film } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 import Navbar from "@/components/container/Navbar";
 import Footer from "@/components/container/Footer";
 
@@ -89,10 +89,16 @@ export default function Favorite() {
       <section className="relative bg-black min-h-screen text-white py-20 px-6 md:px-20">
         <h1 className="text-4xl font-bold mb-10 mt-2">Favorites</h1>
 
-        {/* 🌟 Tampilan awal Explore Movie */}
+        {/* Empty State */}
         {!isExplore && (
           <div className="flex flex-col items-center justify-start">
-            <Image src="/frame52.png" className="w-34 h-35 text-gray-500 mb-6" width={200} height={200} alt="video" />
+            <Image
+              src="/frame52.png"
+              className="w-34 h-35 text-gray-500 mb-6"
+              width={200}
+              height={200}
+              alt="video"
+            />
             <p className="font-semibold mb-2">Data Empty</p>
             <p className="text-sm text-gray-400 mb-6">
               You don’t have a favorite movie yet
@@ -106,7 +112,7 @@ export default function Favorite() {
           </div>
         )}
 
-        {/* 🎬 Daftar Film */}
+        {/* Movie List */}
         {isExplore && (
           <div className="relative transition-all duration-700">
             {movies.map((movie) => {
@@ -116,19 +122,15 @@ export default function Favorite() {
               return (
                 <div
                   key={movie.id}
-                  onClick={(e) => {
-                    const target = e.target as HTMLElement;
-                    if (target.closest("button[data-role='trailer']")) return;
-                    toggleFavorite(movie.id);
-                  }}
-                  className={`relative cursor-pointer flex flex-col md:flex-row items-start md:items-stretch gap-6 border-b border-[#1F242E] pb-10 mb-10 transition-all duration-500 ease-in-out ${
+                  onClick={() => toggleFavorite(movie.id)}
+                  className={`relative flex flex-row md:flex-row items-start gap-4 border-b border-[#1F242E] pb-10 mb-10 transition-all duration-500 ease-in-out cursor-pointer ${
                     isBlur
-                      ? "brightness-[0.5] opacity-80 scale-[0.90]"
+                      ? "brightness-[0.7] opacity-80 scale-[0.9]"
                       : "brightness-100 opacity-100 scale-100"
                   }`}
                   style={{ transformOrigin: "center" }}
                 >
-                  {/* ❤️ Love */}
+                  {/* Heart icon (stop click bubbling) */}
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -146,39 +148,43 @@ export default function Favorite() {
                   </button>
 
                   {/* Poster */}
-                  <div className="w-full md:w-[180px] flex-shrink-0">
+                  <div className="w-[100px] h-[140px] flex-shrink-0 md:w-[160px] md:h-[240px]">
                     <Image
                       src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                       alt={movie.title}
-                      width={180}
-                      height={270}
-                      className="rounded-lg w-full h-auto object-cover"
+                      width={160}
+                      height={240}
+                      className="rounded-lg w-full h-full object-cover"
                     />
                   </div>
 
                   {/* Info */}
-                  <div className="flex flex-col justify-between flex-1 pr-10">
+                  <div className="flex flex-col justify-between flex-1">
                     <div>
-                      <h2 className="text-xl md:text-3xl font-semibold mb-2">
+                      <h2 className="text-[16px] md:text-2xl font-semibold mb-1 md:mb-2">
                         {movie.title}
                       </h2>
-                      <div className="flex items-center gap-2 text-white mb-3 text-xl">
+                      <div className="flex items-center gap-2 text-white mb-2 text-[14px] md:text-lg">
                         <Star className="w-4 h-4 fill-[#E4A802] stroke-[#E4A802]" />
                         <span>{movie.vote_average.toFixed(1)}/10</span>
                       </div>
-                      <p className="text-[#A4A7AE] text-sm md:text-base line-clamp-3 md:line-clamp-4">
+                      <p className="text-[#A4A7AE] text-sm md:text-base line-clamp-2 md:line-clamp-3">
                         {movie.overview}
                       </p>
                     </div>
 
-                    {/* 🎥 Watch Trailer */}
-                    <div className="mt-5">
+                    {/* Watch Trailer */}
+                    <div className="mt-4 md:mt-5">
                       <button
-                        data-role="trailer"
-                        onClick={() => handleWatchTrailer(movie.id)}
-                        className="cursor-pointer inline-flex items-center justify-center gap-3 bg-[#961200] hover:bg-[#b11700] text-white px-7 py-4 mb-10 rounded-full transition"
+                        onClick={(e) => {
+                          e.stopPropagation(); // biar gak ikut toggle
+                          handleWatchTrailer(movie.id);
+                        }}
+                        className="w-full md:w-auto inline-flex items-center justify-center gap-3 bg-[#961200] hover:bg-[#b11700] text-white px-7 py-3 md:py-4 rounded-full transition"
                       >
-                        <span className="font-medium">Watch Trailer</span>
+                        <span className="font-medium text-[14px] md:text-base">
+                          Watch Trailer
+                        </span>
                         <span className="w-5 h-5 rounded-full bg-white flex items-center justify-center relative">
                           <svg
                             width="13"
@@ -201,7 +207,7 @@ export default function Favorite() {
         )}
       </section>
 
-      {/* 🎞 Modal Trailer */}
+      {/* Trailer Modal */}
       {trailerKey && (
         <div
           className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center"

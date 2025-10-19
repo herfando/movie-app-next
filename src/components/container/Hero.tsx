@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link"
 
 interface Movie {
@@ -25,7 +24,6 @@ export default function Hero() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [trailerKey, setTrailerKey] = useState<string | null>(null); // 🎥 simpan YouTube key
-  const router = useRouter();
 
   useEffect(() => {
     async function fetchMovies() {
@@ -82,9 +80,6 @@ export default function Hero() {
     }
   };
 
-  const handleSeeDetail = () => {
-    router.push(`/detail/${currentMovie.id}`);
-  };
 
   const closeTrailer = () => {
     setTrailerKey(null);
