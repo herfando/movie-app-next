@@ -93,7 +93,7 @@ export default function Favorite() {
         {!isExplore && (
           <div className="flex flex-col items-center justify-start">
             <Image
-              src="/frame52.png"
+              src="/video.png"
               className="w-34 h-35 text-gray-500 mb-6"
               width={200}
               height={200}
