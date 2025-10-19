@@ -17,7 +17,7 @@ The goal is to assess your ability to:
 
 - Interpret a design from Figma.
 - Create a reusable component
-- Structure a webpage with Next JS.
+- Structure a webpage with Next JS..
 - Apply styles using Tailwind CSS.
 - Create a responsive layout.
 - Routing and rendering method
