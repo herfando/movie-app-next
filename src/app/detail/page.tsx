@@ -9,7 +9,7 @@ import Footer from "@/components/container/Footer";
 
 export default function DetailPage() {
   const { trending, newRelease, loading } = useFetchMovies();
-    const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("");
   
     const filteredTrending = trending.filter((m) =>
       m.title.toLowerCase().includes(query.toLowerCase())
