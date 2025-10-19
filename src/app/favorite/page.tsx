@@ -98,6 +98,7 @@ export default function Favorite() {
               width={200}
               height={200}
               alt="video"
+              priority
             />
             <p className="font-semibold mb-2">Data Empty</p>
             <p className="text-sm text-gray-400 mb-6">
