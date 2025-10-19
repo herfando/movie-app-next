@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link"
 
 interface Movie {
   id: number;
@@ -123,16 +124,16 @@ export default function Hero() {
             />
           </button>
 
-          <button
-            onClick={handleSeeDetail}
+          <Link
+            href="/detail"
             className="h-[44px] w-full md:translate-x-[-60px] flex justify-center items-center md:h-[52px] md:w-[230px] bg-[#181D27] rounded-full hover:bg-[#222833] transition"
           >
             See Detail
-          </button>
+          </Link>
         </div>
       </div>
 
-      {/* 🎬 Modal YouTube trailer */}
+      {/* Modal YouTube trailer */}
       {trailerKey && (
         <div
           className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center"
