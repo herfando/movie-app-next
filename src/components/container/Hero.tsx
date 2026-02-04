@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Link from "next/link"
+import Link from "next/link";
 
 interface Movie {
   id: number;
@@ -18,7 +18,6 @@ interface TmdbVideo {
   site: string;
   type: string;
 }
-
 
 export default function Hero() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -80,7 +79,6 @@ export default function Hero() {
     }
   };
 
-
   const closeTrailer = () => {
     setTrailerKey(null);
   };
@@ -109,7 +107,9 @@ export default function Hero() {
           <button
             onClick={handleWatchTrailer}
             className="cursor-pointer h-[44px] w-full flex justify-center items-center md:h-[52px] md:w-[230px] rounded-full bg-[#961200] hover:bg-[#b81500] transition"
-          > Watch Trailer
+          >
+            {" "}
+            Watch Trailer
             <Image
               src="/Play.png"
               alt="play"
@@ -120,7 +120,7 @@ export default function Hero() {
           </button>
 
           <Link
-            href="/detail"
+            href="/detail/1"
             className="h-[44px] w-full md:translate-x-[-60px] flex justify-center items-center md:h-[52px] md:w-[230px] bg-[#181D27] rounded-full hover:bg-[#222833] transition"
           >
             See Detail
