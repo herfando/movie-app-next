@@ -7,11 +7,12 @@ import Detail from "@/components/container/Detail";
 import Footer from "@/components/container/Footer";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
+import { Movie } from "@/query/types/movieType";
 
 export default function DetailPage() {
   const { loading } = useFetchMovies();
   const [query, setQuery] = useState("");
-  const [movie, setMovie] = useState<any>(null);
+  const [movie, setMovie] = useState<Movie | null>(null);
 
   const params = useParams();
   const id = params?.id;
