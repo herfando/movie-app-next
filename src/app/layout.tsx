@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Navbar from "@/components/container/Navbar";
+import Footer from "@/components/container/Footer";
+import { MovieProvider } from "@/context/movieContext";
+import { Providers } from "@/query/providers";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
@@ -20,9 +25,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} font-sans antialiased`}>
-        {children}
-      </body>
+      <Providers>
+        <MovieProvider>
+          <Navbar />
+          <body className={`${poppins.variable} font-sans antialiased`}>
+            {children}
+          </body>
+          <Footer />
+        </MovieProvider>
+      </Providers>
     </html>
   );
 }

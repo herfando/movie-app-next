@@ -5,4 +5,6 @@ export const axiosInstance = axios.create({
     params: {
         api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY,
     },
+    timeout: 60 * 1000,
 });
+console.log("Axios baseURL:", axiosInstance.defaults.baseURL);
