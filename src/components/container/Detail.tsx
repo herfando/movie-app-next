@@ -3,27 +3,26 @@
 // ================= IMPORT =================
 import Image from "next/image";
 import { Heart, Calendar, Star, Video } from "lucide-react";
-import { useParams } from "next/navigation";
 import { useState } from "react";
 
 // HOOK YANG KAMU PUNYA
 import { useMovieDetail } from "@/query/hooks/useMovieDetail";
 
+type DetailProps = {
+  movieId?: number;
+};
+type Video = { key: string; type: string; site: string };
+
 // ================= COMPONENT =================
-export default function Detail() {
-  const params = useParams();
-  const id = params?.id as string;
-
-  // ================= BACKEND DATA =================
-  const { movie, cast, videos, loading } = useMovieDetail(id);
-
+export default function Detail({ movieId }: DetailProps) {
+  const { movie, cast, videos, loading } = useMovieDetail(String(movieId));
   // ================= TRAILER MODAL STATE =================
   const [showTrailer, setShowTrailer] = useState(false);
 
   const genreName = movie?.genres?.[0]?.name || "Action";
 
   const trailer = videos?.find(
-    (v: any) => v.type === "Trailer" && v.site === "YouTube",
+    (v: Video) => v.type === "Trailer" && v.site === "YouTube",
   );
 
   if (loading || !movie)
