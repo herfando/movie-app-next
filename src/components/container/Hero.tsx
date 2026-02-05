@@ -18,6 +18,9 @@ export default function Hero() {
   console.log("Current Movie:", currentMovie);
   console.log("Trailer Key:", trailerKey);
 
+  console.log("API Key:", process.env.NEXT_PUBLIC_TMDB_API_KEY);
+  console.log("Base URL:", process.env.NEXT_PUBLIC_TMDB_BASE_URL);
+
   if (loading || !currentMovie) {
     return (
       <section className="w-full h-[448px] md:h-[673px] flex items-center justify-center bg-black text-white">
