@@ -4,7 +4,7 @@ import Image from 'next/image';
 export default function MyWorkExperience() {
   return (
     <section
-      className='custom-container flex h-auto w-full flex-col justify-center pt-40 pb-60 md:pt-80 md:pb-80'
+      className='custom-container flex h-auto w-full flex-col justify-center pt-150 pb-60 md:pt-80 md:pb-80'
       id='experience'
     >
       {/* Title */}
