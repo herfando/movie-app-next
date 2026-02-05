@@ -238,7 +238,7 @@ export default function MyLatestWork() {
         </div> */}
 
         {/* Work 5 */}
-        <div className='flex h-444 w-384 flex-col justify-between gap-24'>
+        {/* <div className='flex h-444 w-384 flex-col justify-between gap-24'>
           <div className='flex gap-x-5'>
             <div className='flex h-28 items-center justify-center rounded-full border border-dashed border-[#A4A7AE] px-5 text-[12px] md:h-36 md:text-[14px]'>
               React
@@ -289,7 +289,7 @@ export default function MyLatestWork() {
               <ArrowRight className='ml-5 h-14 w-14 self-center' />
             </div>
           </Link>
-        </div>
+        </div> */}
       </div>
     </section>
   );
