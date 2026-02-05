@@ -8,5 +8,7 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(config => {
     if (!config.params) config.params = {};
     config.params["api_key"] = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+
+    console.log("Vercel Request Config:", config); // <- cek di log Vercel
     return config;
 });
