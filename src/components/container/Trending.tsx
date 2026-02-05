@@ -9,17 +9,20 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useMovieList } from "@/query/hooks/useMovieList";
-import { useState } from "react";
+import { useSearch } from "@/context/searchContext";
 import Link from "next/link";
+import { useFavorites } from "@/context/favoritesContext";
+import { Heart } from "lucide-react";
 
 export default function Trending() {
   const { trending, trendingLoading } = useMovieList();
-  const [query, setQuery] = useState("");
+  const { search } = useSearch();
+  const { favorites, toggleFavorite } = useFavorites();
 
   if (trendingLoading) return <div className="text-white p-10">Loading...</div>;
 
   const filteredTrending = trending.filter((m) =>
-    m.title.toLowerCase().includes(query.toLowerCase()),
+    m.title.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -41,7 +44,7 @@ export default function Trending() {
             return (
               <CarouselItem key={item.id} className="basis-1/2 md:basis-1/5">
                 <div className="relative grid justify-center items-center">
-                  <div className="absolute top-2 md:left-8 left-12 w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-700 text-white flex items-center justify-center text-sm md:text-base font-bold z-10">
+                  <div className="absolute md:top-2 top-1 md:left-8 left-1 w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-700 text-white flex items-center justify-center text-sm md:text-base font-bold z-10">
                     {index + 1}
                   </div>
                   <Link href={`/detail/${item.id}`}>
@@ -53,6 +56,24 @@ export default function Trending() {
                       className="rounded-xl shadow-lg hover:scale-105 transition-all duration-300"
                     />
                   </Link>
+                  <button
+                    className="z-10 absolute md:right-8 right-2 md:top-3 top-2 cursor-pointer mw:h-8 md:w-8 w-6 h-6 transition"
+                    onClick={() =>
+                      toggleFavorite({
+                        id: item.id,
+                        title: item.title,
+                        overview: item.overview,
+                        poster_path: item.poster_path,
+                        vote_average: item.vote_average,
+                      })
+                    }
+                  >
+                    {favorites.includes(item.id) ? (
+                      <Heart className="fill-[#961200] md:w-8 md:h-8 w-6 h-6 stroke-[#961200]" />
+                    ) : (
+                      <Heart className=" md:w-8 md:h-8 w-6 h-6 stroke-white" />
+                    )}
+                  </button>
                   <h2 className="text-lg font-semibold mt-3 text-[#FDFDFD]">
                     {item.title}
                   </h2>

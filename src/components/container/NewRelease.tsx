@@ -2,20 +2,24 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { useMovieList } from "@/query/hooks/useMovieList";
+import { useSearch } from "@/context/searchContext";
 import Link from "next/link";
+import { useState } from "react";
+import { useFavorites } from "@/context/favoritesContext";
+import { Heart } from "lucide-react";
 
 export default function NewReleaseSection() {
   const { newRelease, newReleaseLoading } = useMovieList();
-  const [query, setQuery] = useState("");
+  const { search } = useSearch();
   const [visibleCount, setVisibleCount] = useState(10);
+  const { favorites, toggleFavorite } = useFavorites();
 
   if (newReleaseLoading)
     return <div className="text-white p-10">Loading...</div>;
 
   const filteredNewRelease = newRelease.filter((m) =>
-    m.title.toLowerCase().includes(query.toLowerCase()),
+    m.title.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -28,13 +32,15 @@ export default function NewReleaseSection() {
           const img = item.poster_path
             ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
             : "/fallback.png";
-
           const rating = item.vote_average
             ? item.vote_average.toFixed(1)
             : "N/A";
 
           return (
-            <div key={item.id} className="grid justify-center items-center">
+            <div
+              key={item.id}
+              className="relative grid justify-center items-center"
+            >
               <Link href={`/detail/${item.id}`}>
                 <Image
                   src={img}
@@ -44,6 +50,24 @@ export default function NewReleaseSection() {
                   className="rounded-xl shadow-lg hover:scale-105 transition-all duration-300"
                 />
               </Link>
+              <button
+                className="z-10 absolute  right-2  top-2 cursor-pointer mw:h-8 md:w-8 w-6 h-6 transition"
+                onClick={() =>
+                  toggleFavorite({
+                    id: item.id,
+                    title: item.title,
+                    overview: item.overview,
+                    poster_path: item.poster_path,
+                    vote_average: item.vote_average,
+                  })
+                }
+              >
+                {favorites.includes(item.id) ? (
+                  <Heart className="fill-[#961200] md:w-8 md:h-8 w-6 h-6 stroke-[#961200]" />
+                ) : (
+                  <Heart className=" md:w-8 md:h-8 w-6 h-6 stroke-white" />
+                )}
+              </button>
               <h2 className="text-lg font-semibold mt-3 text-[#FDFDFD]">
                 {item.title}
               </h2>

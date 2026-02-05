@@ -4,12 +4,14 @@ import Image from "next/image";
 import { Heart, Calendar, Star, Video } from "lucide-react";
 import { useState } from "react";
 import { useDetail } from "@/query/hooks/useDetail";
+import { useFavorites } from "@/context/favoritesContext";
 import type { DetailProps, VideoDetail } from "@/query/types/detailType";
 
 export default function Detail({ movieId }: DetailProps) {
   const { movie, cast, videos, loading } = useDetail(String(movieId));
   const [showTrailer, setShowTrailer] = useState(false);
   const genreName = movie?.genres?.[0]?.name || "Action";
+  const { favorites, toggleFavorite } = useFavorites();
   const trailer = videos?.find(
     (v: VideoDetail) => v.type === "Trailer" && v.site === "YouTube",
   );
@@ -84,9 +86,24 @@ export default function Detail({ movieId }: DetailProps) {
                   />
                 </button>
 
-                <div className="md:flex hidden content-center md:w-[52px] md:h-[52px] w-[44px] h-[44px] border rounded-full justify-center items-center border-[#181D27] bg-[#181D27]">
-                  <Heart className="w-[24px] h-[24px] stroke-white fill-none md:stroke-[#961200] md:fill-[#961200]" />
-                </div>
+                <button
+                  className="md:flex hidden content-center md:w-[52px] md:h-[52px] w-[44px] h-[44px] border rounded-full justify-center items-center border-[#181D27] bg-[#181D27]"
+                  onClick={() =>
+                    toggleFavorite({
+                      id: movie.id,
+                      title: movie.title,
+                      overview: movie.overview,
+                      poster_path: movie.poster_path,
+                      vote_average: movie.vote_average,
+                    })
+                  }
+                >
+                  {favorites.includes(movie.id) ? (
+                    <Heart className="fill-[#961200] md:w-8 md:h-8 w-6 h-6 stroke-[#961200]" />
+                  ) : (
+                    <Heart className=" md:w-8 md:h-8 w-6 h-6 stroke-white" />
+                  )}
+                </button>
               </div>
             </div>
 

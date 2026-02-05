@@ -6,6 +6,8 @@ import Navbar from "@/components/container/Navbar";
 import Footer from "@/components/container/Footer";
 import { MovieProvider } from "@/context/movieContext";
 import { Providers } from "@/query/providers";
+import { SearchProvider } from "@/context/searchContext";
+import { FavoritesProvider } from "@/context/favoritesContext";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
@@ -26,13 +28,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} font-sans antialiased`}>
-        <Providers>
-          <MovieProvider>
-            <Navbar />
-            {children}
-            <Footer />
-          </MovieProvider>
-        </Providers>
+        <SearchProvider>
+          <FavoritesProvider>
+            <Providers>
+              <MovieProvider>
+                <Navbar />
+                {children}
+                <Footer />
+              </MovieProvider>
+            </Providers>
+          </FavoritesProvider>
+        </SearchProvider>
       </body>
     </html>
   );

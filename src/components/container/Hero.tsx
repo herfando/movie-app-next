@@ -1,39 +1,38 @@
 "use client";
 
-// ================= IMPORT =================
 import Image from "next/image";
 import Link from "next/link";
 import { useMovies } from "@/query/hooks/useMovie";
+import { useSearch } from "@/context/searchContext";
+import { useFavorites } from "@/context/favoritesContext";
+import { Heart } from "lucide-react";
 
-// ================= COMPONENT =================
 export default function Hero() {
+  const { search } = useSearch();
+  const { favorites, toggleFavorite } = useFavorites();
   const {
     currentMovie,
     trailerKey,
-    loading,
     handleWatchTrailer,
     closeTrailer,
+    loading,
   } = useMovies();
 
-  console.log("Current Movie:", currentMovie);
-  console.log("Trailer Key:", trailerKey);
-
-  console.log("API Key:", process.env.NEXT_PUBLIC_TMDB_API_KEY);
-  console.log("Base URL:", process.env.NEXT_PUBLIC_TMDB_BASE_URL);
-
-  if (loading || !currentMovie) {
+  if (loading || !currentMovie)
     return (
       <section className="w-full h-[448px] md:h-[673px] flex items-center justify-center bg-black text-white">
         Loading...
       </section>
     );
-  }
+
+  // filter global search
+  if (!currentMovie.title.toLowerCase().includes(search.toLowerCase()))
+    return null;
 
   const imageUrl = `https://image.tmdb.org/t/p/original${currentMovie.backdrop_path}`;
 
   return (
     <section className="w-full md:h-[673px] h-[448px] flex items-center relative overflow-hidden">
-      {/* Background Image */}
       <Image
         key={currentMovie.id}
         src={imageUrl}
@@ -44,7 +43,6 @@ export default function Hero() {
       />
       <div className="absolute inset-0 bg-black/50" />
 
-      {/* Konten teks */}
       <div className="relative z-10 translate-x-3 mr-4 translate-y-[60px] md:translate-y-0 md:translate-x-20 pl-0 md:w-[635px] w-full grid md:gap-7 gap-2">
         <h1 className="text-2xl md:text-5xl font-bold text-[#FDFDFD]">
           {currentMovie.title}
@@ -53,8 +51,7 @@ export default function Hero() {
           {currentMovie.overview}
         </h4>
 
-        <div className="gap-4 md:gap-0 grid md:grid-cols-2 grid-cols-1 md:mt-5 text-[#FDFDFD]">
-          {/* Button Watch Trailer */}
+        <div className=" gap-4 md:gap-20 grid justify-center md:grid-cols-3 grid-cols-1 mt-5 text-[#FDFDFD]">
           <button
             onClick={handleWatchTrailer}
             className="cursor-pointer h-[44px] w-full flex justify-center items-center md:h-[52px] md:w-[230px] rounded-full bg-[#961200] hover:bg-[#b81500] transition"
@@ -68,18 +65,34 @@ export default function Hero() {
               height={30}
             />
           </button>
-
-          {/* Link Detail */}
           <Link
             href={`/detail/${currentMovie.id}`}
-            className="h-[44px] w-full md:translate-x-[-60px] flex justify-center items-center md:h-[52px] md:w-[230px] bg-[#181D27] rounded-full hover:bg-[#222833] transition"
+            className="h-[44px] w-full flex justify-center items-center md:h-[52px] md:w-[230px] bg-[#181D27] rounded-full hover:bg-[#222833] transition"
           >
             See Detail
           </Link>
+          {/* Heart icon */}
+          <button
+            className="md:block hidden cursor-pointer h-[44px] w-full  justify-items-start items-center md:h-[52px] md:w-[230px] rounded-full  transition"
+            onClick={() =>
+              toggleFavorite({
+                id: currentMovie.id,
+                title: currentMovie.title,
+                overview: currentMovie.overview,
+                poster_path: currentMovie.poster_path,
+                vote_average: currentMovie.vote_average,
+              })
+            }
+          >
+            {favorites.includes(currentMovie.id) ? (
+              <Heart className="fill-[#961200] w-10 h-10 stroke-[#961200]" />
+            ) : (
+              <Heart className=" w-10 h-10 stroke-white" />
+            )}
+          </button>
         </div>
       </div>
 
-      {/* Modal YouTube Trailer */}
       {trailerKey && (
         <div
           className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center"

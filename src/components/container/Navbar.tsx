@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Hamburger from "hamburger-react";
 import Link from "next/link";
+import { useSearch } from "@/context/searchContext";
 
 export default function Navbar() {
-  // 🔹 state search ada di Navbar sendiri
-  const [query, setQuery] = useState("");
+  const { search, setSearch, searchActive, setSearchActive } = useSearch();
   const [isOpen, setOpen] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -64,8 +64,10 @@ export default function Navbar() {
         <input
           type="text"
           placeholder="Search Movie"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          value={search}
+          onFocus={() => setSearchActive(true)}
+          onBlur={() => setSearchActive(false)}
+          onChange={(e) => setSearch(e.target.value)}
           className="text-white border bg-[#252B37] border-[#252B37] rounded-lg md:w-[243px] md:h-[56px] w-[180px] h-[56px] pl-10"
         />
       </form>
@@ -98,8 +100,8 @@ export default function Navbar() {
           <input
             type="text"
             placeholder="Search Movie"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             className="h-[56px] w-[180px] pl-10 rounded-lg bg-[#252B37] border border-[#252B37] text-white"
           />
         </form>
