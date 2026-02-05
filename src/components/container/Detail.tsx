@@ -138,11 +138,11 @@ export default function Detail({ movieId }: DetailProps) {
         </div>
 
         {/* Overview */}
-        <div className=" absolute md:translate-y-45 translate-y-17 md:translate-x-20 translate-x-5 md:mr-40 mr-10">
+        <div className="max-h-40 overflow-y-auto absolute md:translate-y-45 translate-y-17 md:translate-x-20 translate-x-5 md:mr-40 mr-10">
           <h1 className="text-3xl text-white font-bold md:mb-4 mb-1">
             Overview
           </h1>
-          <span className="text-[#A4A7AE] text-l">{movie.overview}</span>
+          <span className="text-[#A4A7AE] text-l  ">{movie.overview}</span>
         </div>
 
         {/* Cast & Crew */}
