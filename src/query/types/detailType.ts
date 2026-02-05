@@ -34,3 +34,9 @@ export interface Video {
     site: string;
     type: string;
 }
+
+export type DetailProps = {
+    movieId?: number;
+};
+
+export type VideoDetail = { key: string; type: string; site: string };

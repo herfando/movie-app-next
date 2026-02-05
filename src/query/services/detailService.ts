@@ -1,7 +1,7 @@
 // src/query/services/DetailMovieService.ts
 import { axiosInstance } from "@/query/axiosInstance";
 
-export const DetailMovieService = {
+export const DetailService = {
     // Movie main detail
     getDetail: (id: string | number) =>
         axiosInstance.get(`/movie/${id}`, {

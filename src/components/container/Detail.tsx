@@ -1,34 +1,23 @@
 "use client";
 
-// ================= IMPORT =================
 import Image from "next/image";
 import { Heart, Calendar, Star, Video } from "lucide-react";
 import { useState } from "react";
+import { useDetail } from "@/query/hooks/useDetail";
+import type { DetailProps, VideoDetail } from "@/query/types/detailType";
 
-// HOOK YANG KAMU PUNYA
-import { useMovieDetail } from "@/query/hooks/useMovieDetail";
-
-type DetailProps = {
-  movieId?: number;
-};
-type Video = { key: string; type: string; site: string };
-
-// ================= COMPONENT =================
 export default function Detail({ movieId }: DetailProps) {
-  const { movie, cast, videos, loading } = useMovieDetail(String(movieId));
-  // ================= TRAILER MODAL STATE =================
+  const { movie, cast, videos, loading } = useDetail(String(movieId));
   const [showTrailer, setShowTrailer] = useState(false);
-
   const genreName = movie?.genres?.[0]?.name || "Action";
-
   const trailer = videos?.find(
-    (v: Video) => v.type === "Trailer" && v.site === "YouTube",
+    (v: VideoDetail) => v.type === "Trailer" && v.site === "YouTube",
   );
 
   if (loading || !movie)
     return <div className="text-white p-10">Loading...</div>;
 
-  // ================= TMDB IMAGE =================
+  // TMDB IMAGE
   const backdropUrl = movie.backdrop_path
     ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
     : "/image3.png";
@@ -37,7 +26,6 @@ export default function Detail({ movieId }: DetailProps) {
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : "/image10.png";
 
-  // ================= RENDER UI =================
   return (
     <>
       <section className="bg-black w-full md:h-[1383px] h-[1345px] flex items-center relative overflow-hidden">
@@ -150,7 +138,7 @@ export default function Detail({ movieId }: DetailProps) {
         </div>
 
         {/* Overview */}
-        <div className=" absolute md:translate-y-45 translate-y-27 md:translate-x-20 translate-x-5 md:mr-40 mr-10">
+        <div className=" absolute md:translate-y-45 translate-y-17 md:translate-x-20 translate-x-5 md:mr-40 mr-10">
           <h1 className="text-3xl text-white font-bold md:mb-4 mb-1">
             Overview
           </h1>
@@ -158,16 +146,16 @@ export default function Detail({ movieId }: DetailProps) {
         </div>
 
         {/* Cast & Crew */}
-        <div className="absolute md:translate-y-115 translate-y-115 md:translate-x-20 translate-x-5">
+        <div className="absolute md:translate-y-115 translate-y-105 md:translate-x-20 translate-x-5">
           <h1 className="text-3xl text-white font-bold md:mb-8 mb-1">
             Cast & Crew
           </h1>
 
-          <div className="justify-self-center-safe grid md:grid-cols-4 grid-cols-2 md:gap-15 md:gap-x-30 gap-x-5 gap-2">
+          <div className="justify-self-center-safe  grid md:grid-cols-4 grid-cols-2 md:gap-15 md:gap-x-30 gap-x-5 gap-2 gap-y-5">
             {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
               <div key={i} className="flex gap-4">
                 <Image
-                  className="md:w-[69px] md:h-[104px]"
+                  className="md:w-[69px] md:h-[104px] object-cover"
                   src={
                     cast[i]?.profile_path
                       ? `https://image.tmdb.org/t/p/w185${cast[i].profile_path}`

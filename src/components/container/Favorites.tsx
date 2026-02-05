@@ -3,22 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Heart, Star } from "lucide-react";
-
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string;
-  vote_average: number;
-  overview: string;
-}
-
-interface TmdbVideo {
-  id: string;
-  key: string;
-  name: string;
-  site: string;
-  type: string;
-}
+import type { Movie, TmdbVideo } from "@/query/types/movieType";
 
 export default function Favorite() {
   const [movies, setMovies] = useState<Movie[]>([]);

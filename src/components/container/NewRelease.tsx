@@ -1,13 +1,11 @@
 "use client";
 
-// ================= IMPORT =================
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useMovieList } from "@/query/hooks/useMovieList";
 import Link from "next/link";
 
-// ================= COMPONENT =================
 export default function NewReleaseSection() {
   const { newRelease, newReleaseLoading } = useMovieList();
   const [query, setQuery] = useState("");

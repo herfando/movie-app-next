@@ -1,6 +1,5 @@
 "use client";
 
-// ================= IMPORT =================
 import Image from "next/image";
 import {
   Carousel,
@@ -13,7 +12,6 @@ import { useMovieList } from "@/query/hooks/useMovieList";
 import { useState } from "react";
 import Link from "next/link";
 
-// ================= COMPONENT =================
 export default function Trending() {
   const { trending, trendingLoading } = useMovieList();
   const [query, setQuery] = useState("");
