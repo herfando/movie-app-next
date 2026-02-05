@@ -15,6 +15,9 @@ export default function Hero() {
     closeTrailer,
   } = useMovies();
 
+  console.log("Current Movie:", currentMovie);
+  console.log("Trailer Key:", trailerKey);
+
   if (loading || !currentMovie) {
     return (
       <section className="w-full h-[448px] md:h-[673px] flex items-center justify-center bg-black text-white">
