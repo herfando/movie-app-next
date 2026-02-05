@@ -1,0 +1,117 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useMovies } from "@/query/hooks/useMovie";
+import { useSearch } from "@/context/searchContext";
+import { useFavorites } from "@/context/favoritesContext";
+import { Heart } from "lucide-react";
+
+export default function Hero() {
+  const { search } = useSearch();
+  const { favorites, toggleFavorite } = useFavorites();
+  const {
+    currentMovie,
+    trailerKey,
+    handleWatchTrailer,
+    closeTrailer,
+    loading,
+  } = useMovies();
+
+  if (loading || !currentMovie)
+    return (
+      <section className="w-full h-[448px] md:h-[673px] flex items-center justify-center bg-black text-white">
+        Loading...
+      </section>
+    );
+
+  // filter global search
+  if (!currentMovie.title.toLowerCase().includes(search.toLowerCase()))
+    return null;
+
+  const imageUrl = `https://image.tmdb.org/t/p/original${currentMovie.backdrop_path}`;
+
+  return (
+    <section className="w-full md:h-[673px] h-[448px] flex items-center relative overflow-hidden">
+      <Image
+        key={currentMovie.id}
+        src={imageUrl}
+        alt={currentMovie.title}
+        fill
+        priority
+        className="object-cover transition-all duration-1000 ease-in-out"
+      />
+      <div className="absolute inset-0 bg-black/50" />
+
+      <div className="relative z-10 translate-x-3 mr-4 translate-y-[60px] md:translate-y-0 md:translate-x-20 pl-0 md:w-[635px] w-full grid md:gap-7 gap-2">
+        <h1 className="text-2xl md:text-5xl font-bold text-[#FDFDFD]">
+          {currentMovie.title}
+        </h1>
+        <h4 className="text-md font-medium text-[#A4A7AE] line-clamp-3">
+          {currentMovie.overview}
+        </h4>
+
+        <div className=" gap-4 md:gap-20 grid justify-center md:grid-cols-3 grid-cols-1 mt-5 text-[#FDFDFD]">
+          <button
+            onClick={handleWatchTrailer}
+            className="cursor-pointer h-[44px] w-full flex justify-center items-center md:h-[52px] md:w-[230px] rounded-full bg-[#961200] hover:bg-[#b81500] transition"
+          >
+            Watch Trailer
+            <Image
+              src="/Play.png"
+              alt="play"
+              className="pl-2"
+              width={30}
+              height={30}
+            />
+          </button>
+          <Link
+            href={`/detail/${currentMovie.id}`}
+            className="h-[44px] w-full flex justify-center items-center md:h-[52px] md:w-[230px] bg-[#181D27] rounded-full hover:bg-[#222833] transition"
+          >
+            See Detail
+          </Link>
+          {/* Heart icon */}
+          <button
+            className="md:block hidden cursor-pointer h-[44px] w-full  justify-items-start items-center md:h-[52px] md:w-[230px] rounded-full  transition"
+            onClick={() =>
+              toggleFavorite({
+                id: currentMovie.id,
+                title: currentMovie.title,
+                overview: currentMovie.overview,
+                poster_path: currentMovie.poster_path,
+                vote_average: currentMovie.vote_average,
+              })
+            }
+          >
+            {favorites.includes(currentMovie.id) ? (
+              <Heart className="fill-[#961200] w-10 h-10 stroke-[#961200]" />
+            ) : (
+              <Heart className=" w-10 h-10 stroke-white" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {trailerKey && (
+        <div
+          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center"
+          onClick={closeTrailer}
+        >
+          <div
+            className="relative w-[90%] md:w-[60%] aspect-video"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <iframe
+              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1`}
+              title="YouTube trailer"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              className="w-full h-full rounded-xl shadow-lg"
+            />
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
