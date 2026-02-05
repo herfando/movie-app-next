@@ -25,15 +25,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Providers>
-        <MovieProvider>
-          <Navbar />
-          <body className={`${poppins.variable} font-sans antialiased`}>
+      <body className={`${poppins.variable} font-sans antialiased`}>
+        <Providers>
+          <MovieProvider>
+            <Navbar />
             {children}
-          </body>
-          <Footer />
-        </MovieProvider>
-      </Providers>
+            <Footer />
+          </MovieProvider>
+        </Providers>
+      </body>
     </html>
   );
 }
