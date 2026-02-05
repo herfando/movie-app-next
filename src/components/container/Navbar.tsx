@@ -43,7 +43,7 @@ export default function Navbar() {
       </Link>
 
       {/* Menu */}
-      <h2 className="text-[#FFFFFF] z-30 md:flex flex-1 gap-10 hidden font-medium">
+      <h2 className="text-[#FFFFFF] z-30 lg:flex flex-1 gap-10 hidden font-medium">
         <Link href="/home" className="hover:text-[#E50914] transition">
           Home
         </Link>
@@ -53,7 +53,7 @@ export default function Navbar() {
       </h2>
 
       {/* Desktop Search */}
-      <form className="relative md:flex hidden items-center">
+      <form className="relative lg:flex hidden items-center">
         <Image
           src="/Vector2.png"
           alt="search"
