@@ -13,7 +13,7 @@ export default function Footer() {
           width={33}
           height={31}
         />
-        <h1 className="md:text-[28.4px] text-[19.9px]">Movie</h1>
+        <h1 className="md:text-[28.3px] text-[19.9px]">Movie</h1>
       </div>
       <p className="text-[#535862] md:pl-55 pl-0 grid md:justify-center justify-start items-center">
         Copyright &copy; {new Date().getFullYear()} Movie Explorer
