@@ -80,6 +80,7 @@ src/
 ├─ context/       # Context API for favorites & search
 ├─ query/         # TanStack Query hooks & API services
 public/           # Static files (images, GIFs)
+
 Notes & Best Practices
 Do not modify project setup files outside src/ or public/
 
