@@ -7,16 +7,21 @@ import {
   useEffect,
   ReactNode,
 } from "react";
+import { getMovieVideos } from "@/query/services/movieService";
+import type { TmdbVideo } from "@/query/types/favoritesType";
 
+// Gunakan Movie global dari TMDB, tapi release_date dan backdrop_path optional
 export type Movie = {
   id: number;
   title: string;
   overview: string;
   poster_path: string | null;
   vote_average: number;
+  release_date?: string;
+  backdrop_path?: string | null;
 };
 
-type FavoritesContextType = {
+export type FavoritesContextType = {
   movies: Movie[]; // semua movie yang pernah difavorit
   favorites: number[]; // list id movie yang difavorit
   toggleFavorite: (movie: Movie) => void;
@@ -50,7 +55,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
 
-  // Sync to localStorage
+  // sync ke localStorage
   useEffect(() => {
     localStorage.setItem("fav_movies", JSON.stringify(movies));
   }, [movies]);
@@ -59,13 +64,14 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("fav_ids", JSON.stringify(favorites));
   }, [favorites]);
 
+  // Toggle favorite tetap aman
   const toggleFavorite = (movie: Movie) => {
     setFavorites((prev) => {
       const isFav = prev.includes(movie.id);
       if (isFav) {
         return prev.filter((id) => id !== movie.id);
       } else {
-        // Jika movie belum ada di movies list, tambahkan
+        // tambahkan movie ke list jika belum ada
         setMovies((prevMovies) => {
           const exists = prevMovies.find((m) => m.id === movie.id);
           if (exists) return prevMovies;
@@ -76,9 +82,25 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const handleWatchTrailer = (id: number) => {
-    // dummy key, nanti bisa diganti dengan fetch API
-    setTrailerKey("dQw4w9WgXcQ");
+  // Watch trailer sesuai movie
+  const handleWatchTrailer = async (movieId: number) => {
+    setLoading(true);
+    try {
+      const videos: TmdbVideo[] = await getMovieVideos(movieId);
+      const trailer = videos.find(
+        (v) => v.type === "Trailer" && v.site === "YouTube",
+      );
+      if (trailer) setTrailerKey(trailer.key);
+      else {
+        setTrailerKey(null);
+        alert("Trailer tidak ditemukan untuk film ini 😢");
+      }
+    } catch (err) {
+      console.error("Error fetching trailer:", err);
+      setTrailerKey(null);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const closeTrailer = () => setTrailerKey(null);
