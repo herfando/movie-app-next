@@ -1,8 +1,6 @@
 # Movie Explorer App 🎬
 
-# Movie Explorer App 🎬
-
-<p style="center">
+<p align="center">
   <img src="public/0.movie.gif" alt="Movie App Demo" />
 </p>
 
@@ -42,18 +40,10 @@ The app demonstrates best practices in:
 
 ---
 
-## Screenshots / GIF
-
-<p style="center">
-  <img src="public/0.movie.gif" alt="Movie App Demo" />
-</p>
-
----
-
 ## Tech Stack
 
-- **Frontend:** Next.js 13 (App Router), React 18
-- **Styling:** Tailwind CSS 4.1.5
+- **Frontend:** Next.js 15 (App Router), React 19
+- **Styling:** Tailwind CSS 4
 - **State Management:** React Context API
 - **Data Fetching:** TanStack Query (React Query)
 - **API:** The Movie Database (TMDB) API
