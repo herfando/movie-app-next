@@ -108,7 +108,7 @@ export default function Detail({ movieId }: DetailProps) {
             </div>
 
             {/* Watch Trailer Mobile */}
-            <div className="flex items-center gap-3 translate-y-20">
+            <div className=" flex items-center gap-3 w-full translate-y-20 ">
               <button
                 type="button"
                 className="md:hidden flex text-white h-[44px] w-[301px] justify-center items-center md:h-[52px] md:w-[230px] relative rounded-full bg-[#961200]"
@@ -124,9 +124,24 @@ export default function Detail({ movieId }: DetailProps) {
                 />
               </button>
 
-              <div className="md:hidden flex content-center md:w-[52px] md:h-[52px] w-[44px] h-[44px] border rounded-full justify-center items-center border-[#181D27] bg-[#181D27]">
-                <Heart className="w-[24px] h-[24px] stroke-white fill-none md:stroke-[#961200] md:fill-[#961200]" />
-              </div>
+              <button
+                className="md:hidden flex content-center md:w-[52px] md:h-[52px] w-[44px] h-[44px] border rounded-full justify-center items-center border-[#181D27] bg-[#181D27]"
+                onClick={() =>
+                  toggleFavorite({
+                    id: movie.id,
+                    title: movie.title,
+                    overview: movie.overview,
+                    poster_path: movie.poster_path,
+                    vote_average: movie.vote_average,
+                  })
+                }
+              >
+                {favorites.includes(movie.id) ? (
+                  <Heart className="fill-[#961200] md:w-8 md:h-8 w-6 h-6 stroke-[#961200]" />
+                ) : (
+                  <Heart className=" md:w-8 md:h-8 w-6 h-6 stroke-white" />
+                )}
+              </button>
             </div>
 
             {/* Rating, Genre & Age limit */}
