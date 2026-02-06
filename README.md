@@ -1,8 +1,8 @@
 # Movie Explorer App 🎬
 
 <p align="center">
-  <a href="https://movie-app-next-frwkf47vs-herfandos-projects.vercel.app/home" target="_blank" rel="noopener noreferrer">
-    <img src="public/0.movie.gif" alt="Movie App Demo" />
+  <a href="https://movie-app-next-frwkf47vs-herfandos-projects.vercel.app/home">
+    <img src="https://raw.githubusercontent.com/herfando/movie-app-next/main/public/0.movie.gif" alt="Movie App Demo" />
   </a>
 </p>
 
