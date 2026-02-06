@@ -1,6 +1,10 @@
 # Movie Explorer App 🎬
 
-![Movie App Demo](public/0.movie.gif)
+# Movie Explorer App 🎬
+
+<p style="center">
+  <img src="public/0.movie.gif" alt="Movie App Demo" />
+</p>
 
 **Hosted URL:** [Movie App Live](https://movie-app-next-frwkf47vs-herfandos-projects.vercel.app/home)
 
@@ -40,7 +44,9 @@ The app demonstrates best practices in:
 
 ## Screenshots / GIF
 
-![Movie App Demo](public/0.movie.gif)
+<p style="center">
+  <img src="public/0.movie.gif" alt="Movie App Demo" />
+</p>
 
 ---
 
