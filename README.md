@@ -1,10 +1,14 @@
 # Movie Explorer App 🎬
 
 <p align="center">
-  <img src="public/0.movie.gif" alt="Movie App Demo" />
+  <a href="https://movie-app-next-frwkf47vs-herfandos-projects.vercel.app/home" target="_blank" rel="noopener noreferrer">
+    <img src="public/0.movie.gif" alt="Movie App Demo" />
+  </a>
 </p>
 
-**Hosted URL:** [Movie App Live](https://movie-app-next-frwkf47vs-herfandos-projects.vercel.app/home)
+**Hosted URL:** [Movie App Live]<a href="https://movie-app-next-frwkf47vs-herfandos-projects.vercel.app/home" target="_blank" rel="noopener noreferrer">
+Movie App Live
+</a>
 
 ---
 
