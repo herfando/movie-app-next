@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="gap-5 md:pl-20 pl-10 mx-auto bg-black w-full h-[120px] grid md:grid-cols-2 grid-cols-1 justify-center item-center content-center">
       <div className="text-[#FDFDFD] flex flex-1 gap-3 items-center">
         <Image
-          className="md:w-[33.34px] md:h-[31.18] w-[23.33px] h-[21.82px]"
+          className="md:w-[33.34px] md:h-[31.17] w-[23.33px] h-[21.82px]"
           src="/Vector1.png"
           alt="logo movie"
           width={33}
