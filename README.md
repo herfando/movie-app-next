@@ -6,7 +6,7 @@
   </a>
 </p>
 
-**Hosted URL:** [Movie App Live]<a href="https://movie-app-next-frwkf47vs-herfandos-projects.vercel.app/home" target="_blank" rel="noopener noreferrer">
+**Hosted URL:** [Movie App Live]<a href="https://movie-app-next-frwkf47vs-herfandos-projects.vercel.app/home">
 Movie App Live
 </a>
 
